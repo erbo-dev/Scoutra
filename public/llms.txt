@@ -1,0 +1,11 @@
+# Scoutra
+
+Scoutra is a youth-football development and discovery concept. This landing page is an editorial visual foundation, not a live scouting, assessment, or academy-analysis service.
+
+The future product intends to connect controlled player assessments and academy match analysis with evidence-based player passports and progress over time. Human coaches and scouts make the final decisions; contact involving minors must go through verified organizations and parent or guardian approval.
+
+## Explore this site
+
+- [Player journey](/#journey): Editorial overview of the player experience.
+- [Community](/#community): Kazakhstan youth-football photo essay.
+- [Opportunity](/#opportunity): A visual story about access to the game.
