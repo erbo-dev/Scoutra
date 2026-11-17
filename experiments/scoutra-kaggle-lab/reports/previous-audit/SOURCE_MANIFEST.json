@@ -1,0 +1,2254 @@
+{
+  "date": "2026-11-17",
+  "scope": "Read-only source and metadata audit; no inference, training, benchmarks, dependency installs, checkpoints downloaded or product edits.",
+  "sources": [
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "README.md",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/README.md"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "NOTICE",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/NOTICE"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "requirements.txt",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/requirements.txt"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/orchestrator.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/orchestrator.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/strongsort/tracker.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/tracker.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/strongsort/matching.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/matching.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/strongsort/lifecycle.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/lifecycle.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/strongsort/track.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/track.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/strongsort/gates.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/gates.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/reid/prtreid_extractor.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/reid/prtreid_extractor.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/track_consolidation/_consolidator.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/track_consolidation/_consolidator.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/track_consolidation/_runner.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/track_consolidation/_runner.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/track_consolidation/_sampler.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/track_consolidation/_sampler.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/pipeline/_pipeline.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/pipeline/_pipeline.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/utils/export/intermediate_exporter.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/utils/export/intermediate_exporter.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/utils/prefetcher.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/utils/prefetcher.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/video_processor.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/video_processor.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/events/detectors/pass_detector.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/events/detectors/pass_detector.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/events/detectors/shot.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/events/detectors/shot.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/events/_orchestrator.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/events/_orchestrator.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/jersey/qwen_vllm_recognizer.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/jersey/qwen_vllm_recognizer.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/botsort_tracker.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/botsort_tracker.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/tracking/strongsort_tracker.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort_tracker.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "README.md",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/README.md"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "PIPELINE_AUDIT.md",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/PIPELINE_AUDIT.md"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "GAMEPLAY_ANALYSIS.md",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/GAMEPLAY_ANALYSIS.md"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "IMPLEMENTATION_NOTES.md",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/IMPLEMENTATION_NOTES.md"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "config.yaml",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/config.yaml"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "requirements.txt",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/requirements.txt"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/detect_track.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/detect_track.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/jersey_ocr.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/jersey_ocr.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/find_player.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/find_player.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/merge_chunks.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/merge_chunks.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/run_parallel.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/run_parallel.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/trackio.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/trackio.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/cross_lens_merge.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/cross_lens_merge.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/team_classify.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/team_classify.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/possession.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/possession.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/export_player_tracks.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/export_player_tracks.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "README.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/README.md"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "NOTICE",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/NOTICE"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "docs/pipeline_status.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/pipeline_status.md"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "docs/architecture.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/architecture.md"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "docs/gpu-upgrade-analysis.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/gpu-upgrade-analysis.md"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "docs/vllm-gpu-orchestration.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/vllm-gpu-orchestration.md"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "docs/video-classification-research.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/video-classification-research.md"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "infra/models/download_models.sh",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/infra/models/download_models.sh"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "src/config.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/config.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "src/detection/dual_pass_detector.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/dual_pass_detector.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "src/detection/frame_sampler.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/frame_sampler.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "src/detection/triage_scanner.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/triage_scanner.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "src/detection/models.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/models.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "scripts/combined_pipeline.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/combined_pipeline.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "scripts/evaluate_finetune.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/evaluate_finetune.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "scripts/train_lora_v11.sh",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/train_lora_v11.sh"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "scripts/prepare_lora_v11_dataset.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/prepare_lora_v11_dataset.py"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "scripts/run_vllm_fp8_v10.sh",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/run_vllm_fp8_v10.sh"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "state/run_60_eval.json",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/state/run_60_eval.json"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "state/run_61_eval.json",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/state/run_61_eval.json"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "README.md",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/README.md"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "FAQ.md",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/FAQ.md"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "pyproject.toml",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/pyproject.toml"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/configs/soccernet.yaml",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/configs/soccernet.yaml"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/reid/prtreid_api.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/reid/prtreid_api.py"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/configs/modules/reid/prtreid.yaml",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/configs/modules/reid/prtreid.yaml"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/jersey/voting_tracklet_jn_api.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/jersey/voting_tracklet_jn_api.py"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/team/tracklet_team_clustering_api.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/team/tracklet_team_clustering_api.py"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/calibration/bbox2pitch.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/calibration/bbox2pitch.py"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "sn_gamestate/calibration/tvcalib.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/calibration/tvcalib.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "README.md",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/README.md"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "pyproject.toml",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/pyproject.toml"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/pipeline.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/pipeline.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/tracking.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/tracking.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/detection.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/detection.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/video.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/video.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/homography.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/homography.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/analytics/speed.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/analytics/speed.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "src/sportvision/analytics/possession.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/analytics/possession.py"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "docs/evaluation/README.md",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/docs/evaluation/README.md"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "docs/evaluation/provisional-results.json",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/docs/evaluation/provisional-results.json"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "docs/product-audit.md",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/docs/product-audit.md"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "README.md",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/README.md"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/TrackingPipeline/main.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/TrackingPipeline/main.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/TrackSoccernet.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/TrackSoccernet.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "requirements.txt",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/requirements.txt"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "README.md",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/README.md"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "config.yaml",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/config.yaml"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "src/runner.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/runner.py"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "src/detection/tracker.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/detection/tracker.py"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "src/calibration/tvcalib_runner.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/calibration/tvcalib_runner.py"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "src/team/classifier.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/team/classifier.py"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "README.md",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/README.md"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "run_pipeline.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/run_pipeline.py"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "src/player/tracking.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/player/tracking.py"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "src/analytics/identity_qa.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/analytics/identity_qa.py"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "src/analytics/build_tactical_identity_aware_dataset.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/analytics/build_tactical_identity_aware_dataset.py"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "src/events/engine.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/events/engine.py"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "docs/closeout/README.md",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/docs/closeout/README.md"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "README.md",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/README.md"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "HANDOVER.md",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/HANDOVER.md"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "src/fv/identity.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/identity.py"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "src/fv/reid_track.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/reid_track.py"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "src/fv/job.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/job.py"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "src/fv/stats.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/stats.py"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "pyproject.toml",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/pyproject.toml"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "README.md",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/README.md"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "src/matchtrace/inference/pipeline.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/inference/pipeline.py"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "src/matchtrace/inference/tracker.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/inference/tracker.py"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "src/matchtrace/inference/detectors.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/inference/detectors.py"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "src/matchtrace/utils/video.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/utils/video.py"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "src/matchtrace/evaluation/evaluate.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/evaluation/evaluate.py"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "README.md",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/README.md"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "src/pipeline.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/pipeline.py"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "src/tracker.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/tracker.py"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "src/player_cluster.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/player_cluster.py"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "src/watcher.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/watcher.py"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "src/events.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/events.py"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "configs/pipeline.yaml",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/configs/pipeline.yaml"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "path": "pyproject.toml",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/pyproject.toml"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/hm_sort_jid/tracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/hm_sort_jid/tracker.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/pytorchmodels/DeepIOUTracker/HMReidJerseyIdTracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/pytorchmodels/DeepIOUTracker/HMReidJerseyIdTracker.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/pytorchmodels/jerseyId/jerseyId.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/pytorchmodels/jerseyId/jerseyId.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/configs/global_configs.yaml",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/configs/global_configs.yaml"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/field_registration/fixed_camera_runner.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/field_registration/fixed_camera_runner.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "goalinsight/field_registration/pnlcalib/weight_downloader.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/field_registration/pnlcalib/weight_downloader.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "deploy/offline/README.md",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/deploy/offline/README.md"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/project_to_pitch.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/project_to_pitch.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/calibrate_match.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/calibrate_match.py"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "scripts/ball_track_pitch.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/ball_track_pitch.py"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "tracklab/engine/offline.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/engine/offline.py"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "tracklab/datastruct/tracker_state.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/datastruct/tracker_state.py"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "plugins/track/bpbreid_strong_sort/sort/nn_matching.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/plugins/track/bpbreid_strong_sort/sort/nn_matching.py"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "plugins/track/bpbreid_strong_sort/sort/tracker.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/plugins/track/bpbreid_strong_sort/sort/tracker.py"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "tracklab/wrappers/track/bpbreid_strong_sort_api.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/wrappers/track/bpbreid_strong_sort_api.py"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "tracklab/configs/modules/track/bpbreid_strong_sort.yaml",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/configs/modules/track/bpbreid_strong_sort.yaml"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "LICENSE",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/LICENSE"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "models/model_TAAD_baseline.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/models/model_TAAD_baseline.py"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "models/model_GNN.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/models/model_GNN.py"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "models/model_DST.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/models/model_DST.py"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "run_TAAD_on_matches.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/run_TAAD_on_matches.py"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "evaluation.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/evaluation.py"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "LICENSE",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/LICENSE"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "opensportslib/configs/vqa/qwen3_vl_native.yaml",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/opensportslib/configs/vqa/qwen3_vl_native.yaml"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "examples/configs/vqa_qwen.yaml",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/examples/configs/vqa_qwen.yaml"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "pyproject.toml",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/pyproject.toml"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "LICENSE",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/LICENSE"
+    },
+    {
+      "repository": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "path": "examples/soccer/main.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/examples/soccer/main.py"
+    },
+    {
+      "repository": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "path": "sports/common/team.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/sports/common/team.py"
+    },
+    {
+      "repository": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "path": "sports/common/view.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/sports/common/view.py"
+    },
+    {
+      "repository": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "path": "sports/common/ball.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/sports/common/ball.py"
+    },
+    {
+      "repository": "VlSomers/prtreid",
+      "commit": "30617a75967e84d5d516959c4b84cbeea6f56493",
+      "path": "LICENSE",
+      "url": "https://github.com/VlSomers/prtreid/blob/30617a75967e84d5d516959c4b84cbeea6f56493/LICENSE"
+    },
+    {
+      "repository": "VlSomers/prtreid",
+      "commit": "30617a75967e84d5d516959c4b84cbeea6f56493",
+      "path": "prtreid/metrics/distance.py",
+      "url": "https://github.com/VlSomers/prtreid/blob/30617a75967e84d5d516959c4b84cbeea6f56493/prtreid/metrics/distance.py"
+    },
+    {
+      "repository": "VlSomers/bpbreid",
+      "commit": "a2dc4304284784d8b2c061764512f0698aa38c21",
+      "path": "LICENSE",
+      "url": "https://github.com/VlSomers/bpbreid/blob/a2dc4304284784d8b2c061764512f0698aa38c21/LICENSE"
+    },
+    {
+      "repository": "VlSomers/bpbreid",
+      "commit": "a2dc4304284784d8b2c061764512f0698aa38c21",
+      "path": "torchreid/metrics/distance.py",
+      "url": "https://github.com/VlSomers/bpbreid/blob/a2dc4304284784d8b2c061764512f0698aa38c21/torchreid/metrics/distance.py"
+    },
+    {
+      "repository": "mkoshkina/jersey-number-pipeline",
+      "commit": "007d54e5530a66616ed5081ca35e0028b36aadb5",
+      "path": "main.py",
+      "url": "https://github.com/mkoshkina/jersey-number-pipeline/blob/007d54e5530a66616ed5081ca35e0028b36aadb5/main.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/pytorchmodels/DeepIOUTracker/HMReidTracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/pytorchmodels/DeepIOUTracker/HMReidTracker.py"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "path": "src/hm_sort_app/tracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/hm_sort_app/tracker.py"
+    },
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "path": "LICENSE",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/LICENSE"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "path": "LICENSE",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/LICENSE"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "path": "LICENSE",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/LICENSE"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "path": "LICENSE",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/LICENSE"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "path": "LICENSE",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/LICENSE"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "path": "LICENSE",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/LICENSE"
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "path": "LICENSE",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/LICENSE"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "path": "LICENSE",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/LICENSE"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "path": "LICENSE",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/LICENSE"
+    },
+    {
+      "repository": "FoundationVision/ByteTrack",
+      "commit": "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "path": "README.md",
+      "url": "https://github.com/FoundationVision/ByteTrack/blob/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99/README.md"
+    },
+    {
+      "repository": "FoundationVision/ByteTrack",
+      "commit": "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "path": "yolox/tracker/byte_tracker.py",
+      "url": "https://github.com/FoundationVision/ByteTrack/blob/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99/yolox/tracker/byte_tracker.py"
+    },
+    {
+      "repository": "FoundationVision/ByteTrack",
+      "commit": "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "path": "LICENSE",
+      "url": "https://github.com/FoundationVision/ByteTrack/blob/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99/LICENSE"
+    },
+    {
+      "repository": "QwenLM/Qwen3.8",
+      "commit": "2ea10dc725823bf7c3e21ce8557cbe15245132ae",
+      "path": "README.md",
+      "url": "https://github.com/QwenLM/Qwen3.8/blob/2ea10dc725823bf7c3e21ce8557cbe15245132ae/README.md"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "opensportslib/models/base/qwen_vl_native.py",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/opensportslib/models/base/qwen_vl_native.py"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "opensportslib/core/utils/hf_runtime.py",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/opensportslib/core/utils/hf_runtime.py"
+    },
+    {
+      "repository": "mkoshkina/jersey-number-pipeline",
+      "commit": "007d54e5530a66616ed5081ca35e0028b36aadb5",
+      "path": "license.txt",
+      "url": "https://github.com/mkoshkina/jersey-number-pipeline/blob/007d54e5530a66616ed5081ca35e0028b36aadb5/license.txt"
+    },
+    {
+      "repository": "NirAharon/BoT-SORT",
+      "commit": "251985436d6712aaf682aaaf5f71edb4987224bd",
+      "path": "tracker/bot_sort.py",
+      "url": "https://github.com/NirAharon/BoT-SORT/blob/251985436d6712aaf682aaaf5f71edb4987224bd/tracker/bot_sort.py"
+    },
+    {
+      "repository": "NirAharon/BoT-SORT",
+      "commit": "251985436d6712aaf682aaaf5f71edb4987224bd",
+      "path": "tracker/gmc.py",
+      "url": "https://github.com/NirAharon/BoT-SORT/blob/251985436d6712aaf682aaaf5f71edb4987224bd/tracker/gmc.py"
+    },
+    {
+      "repository": "NirAharon/BoT-SORT",
+      "commit": "251985436d6712aaf682aaaf5f71edb4987224bd",
+      "path": "LICENSE",
+      "url": "https://github.com/NirAharon/BoT-SORT/blob/251985436d6712aaf682aaaf5f71edb4987224bd/LICENSE"
+    },
+    {
+      "repository": "dyhBUPT/StrongSORT",
+      "commit": "ee995076da5083e28d0da1f885297df62705ebd7",
+      "path": "AFLink/AppFreeLink.py",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/AFLink/AppFreeLink.py"
+    },
+    {
+      "repository": "dyhBUPT/StrongSORT",
+      "commit": "ee995076da5083e28d0da1f885297df62705ebd7",
+      "path": "GSI.py",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/GSI.py"
+    },
+    {
+      "repository": "dyhBUPT/StrongSORT",
+      "commit": "ee995076da5083e28d0da1f885297df62705ebd7",
+      "path": "LICENSE",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/LICENSE"
+    },
+    {
+      "repository": "ML-KULeuven/socceraction",
+      "commit": "93a1242d46c104889205753accaabadb00c45c6d",
+      "path": "socceraction/spadl/base.py",
+      "url": "https://github.com/ML-KULeuven/socceraction/blob/93a1242d46c104889205753accaabadb00c45c6d/socceraction/spadl/base.py"
+    },
+    {
+      "repository": "ML-KULeuven/socceraction",
+      "commit": "93a1242d46c104889205753accaabadb00c45c6d",
+      "path": "socceraction/vaep/base.py",
+      "url": "https://github.com/ML-KULeuven/socceraction/blob/93a1242d46c104889205753accaabadb00c45c6d/socceraction/vaep/base.py"
+    },
+    {
+      "repository": "ML-KULeuven/socceraction",
+      "commit": "93a1242d46c104889205753accaabadb00c45c6d",
+      "path": "socceraction/xthreat.py",
+      "url": "https://github.com/ML-KULeuven/socceraction/blob/93a1242d46c104889205753accaabadb00c45c6d/socceraction/xthreat.py"
+    },
+    {
+      "repository": "UnravelSports/unravelsports",
+      "commit": "2bd24d7e2b3cc19cbdba6486c7abb70270a732ad",
+      "path": "LICENSE",
+      "url": "https://github.com/UnravelSports/unravelsports/blob/2bd24d7e2b3cc19cbdba6486c7abb70270a732ad/LICENSE"
+    },
+    {
+      "repository": "roboflow/rf-detr",
+      "commit": "e56ec6152b0eb1ac8bcca8690aa7ba59761d861f",
+      "path": "src/rfdetr/detr.py",
+      "url": "https://github.com/roboflow/rf-detr/blob/e56ec6152b0eb1ac8bcca8690aa7ba59761d861f/src/rfdetr/detr.py"
+    },
+    {
+      "repository": "roboflow/rf-detr",
+      "commit": "e56ec6152b0eb1ac8bcca8690aa7ba59761d861f",
+      "path": "LICENSE",
+      "url": "https://github.com/roboflow/rf-detr/blob/e56ec6152b0eb1ac8bcca8690aa7ba59761d861f/LICENSE"
+    },
+    {
+      "repository": "Peterande/D-FINE",
+      "commit": "956d1709314c2c6a4df6f34de232054578a7449f",
+      "path": "src/zoo/dfine/dfine_decoder.py",
+      "url": "https://github.com/Peterande/D-FINE/blob/956d1709314c2c6a4df6f34de232054578a7449f/src/zoo/dfine/dfine_decoder.py"
+    },
+    {
+      "repository": "Peterande/D-FINE",
+      "commit": "956d1709314c2c6a4df6f34de232054578a7449f",
+      "path": "LICENSE",
+      "url": "https://github.com/Peterande/D-FINE/blob/956d1709314c2c6a4df6f34de232054578a7449f/LICENSE"
+    },
+    {
+      "repository": "lyuwenyu/RT-DETR",
+      "commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "path": "rtdetrv2_pytorch/src/zoo/rtdetr/rtdetr_decoder.py",
+      "url": "https://github.com/lyuwenyu/RT-DETR/blob/df2a96c8c3a098567a1149bf0248da6efe6d495d/rtdetrv2_pytorch/src/zoo/rtdetr/rtdetr_decoder.py"
+    },
+    {
+      "repository": "lyuwenyu/RT-DETR",
+      "commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "path": "LICENSE",
+      "url": "https://github.com/lyuwenyu/RT-DETR/blob/df2a96c8c3a098567a1149bf0248da6efe6d495d/LICENSE"
+    },
+    {
+      "repository": "tstanczyk95/McBytePlusPlus",
+      "commit": "be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9",
+      "path": "yolox/tracker/mcbyteplusplus_tracker__with_reid.py",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/yolox/tracker/mcbyteplusplus_tracker__with_reid.py"
+    },
+    {
+      "repository": "tstanczyk95/McBytePlusPlus",
+      "commit": "be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9",
+      "path": "INSTALLATION.md",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/INSTALLATION.md"
+    },
+    {
+      "repository": "tstanczyk95/McBytePlusPlus",
+      "commit": "be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9",
+      "path": "LICENSE",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/LICENSE"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "path": "generate_tracklets.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/generate_tracklets.py"
+    },
+    {
+      "repository": "MM4SPA/tvcalib",
+      "commit": "1222c5230af2742395d74918ed6f34eb2b9bf7f9",
+      "path": "tvcalib/module.py",
+      "url": "https://github.com/MM4SPA/tvcalib/blob/1222c5230af2742395d74918ed6f34eb2b9bf7f9/tvcalib/module.py"
+    },
+    {
+      "repository": "MM4SPA/tvcalib",
+      "commit": "1222c5230af2742395d74918ed6f34eb2b9bf7f9",
+      "path": "LICENSE",
+      "url": "https://github.com/MM4SPA/tvcalib/blob/1222c5230af2742395d74918ed6f34eb2b9bf7f9/LICENSE"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "path": "README.md",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/README.md"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "path": "Tracklet.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/Tracklet.py"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "path": "refine_tracklets.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/refine_tracklets.py"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "path": "refine_tracklets_batched.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/refine_tracklets_batched.py"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "path": "LICENSE",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/LICENSE"
+    },
+    {
+      "repository": "erbo-dev/Scoutra",
+      "commit": "a6a02f176f55dd044112951506fa63a919ca7e5b",
+      "path": "README.md",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/README.md"
+    },
+    {
+      "repository": "erbo-dev/Scoutra",
+      "commit": "a6a02f176f55dd044112951506fa63a919ca7e5b",
+      "path": "package.json",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/package.json"
+    },
+    {
+      "repository": "erbo-dev/Scoutra",
+      "commit": "a6a02f176f55dd044112951506fa63a919ca7e5b",
+      "path": "src/App.tsx",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/src/App.tsx"
+    },
+    {
+      "repository": "erbo-dev/Scoutra",
+      "commit": "a6a02f176f55dd044112951506fa63a919ca7e5b",
+      "path": "docs/scoutra-product-context.md",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/docs/scoutra-product-context.md"
+    },
+    {
+      "repository": "roboflow/rf-detr",
+      "commit": "e56ec6152b0eb1ac8bcca8690aa7ba59761d861f",
+      "path": "README.md",
+      "url": "https://github.com/roboflow/rf-detr/blob/e56ec6152b0eb1ac8bcca8690aa7ba59761d861f/README.md"
+    },
+    {
+      "repository": "Peterande/D-FINE",
+      "commit": "956d1709314c2c6a4df6f34de232054578a7449f",
+      "path": "README.md",
+      "url": "https://github.com/Peterande/D-FINE/blob/956d1709314c2c6a4df6f34de232054578a7449f/README.md"
+    },
+    {
+      "repository": "lyuwenyu/RT-DETR",
+      "commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "path": "README.md",
+      "url": "https://github.com/lyuwenyu/RT-DETR/blob/df2a96c8c3a098567a1149bf0248da6efe6d495d/README.md"
+    },
+    {
+      "repository": "NirAharon/BoT-SORT",
+      "commit": "251985436d6712aaf682aaaf5f71edb4987224bd",
+      "path": "README.md",
+      "url": "https://github.com/NirAharon/BoT-SORT/blob/251985436d6712aaf682aaaf5f71edb4987224bd/README.md"
+    },
+    {
+      "repository": "dyhBUPT/StrongSORT",
+      "commit": "ee995076da5083e28d0da1f885297df62705ebd7",
+      "path": "README.md",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/README.md"
+    },
+    {
+      "repository": "VlSomers/prtreid",
+      "commit": "30617a75967e84d5d516959c4b84cbeea6f56493",
+      "path": "README.md",
+      "url": "https://github.com/VlSomers/prtreid/blob/30617a75967e84d5d516959c4b84cbeea6f56493/README.md"
+    },
+    {
+      "repository": "VlSomers/bpbreid",
+      "commit": "a2dc4304284784d8b2c061764512f0698aa38c21",
+      "path": "README.md",
+      "url": "https://github.com/VlSomers/bpbreid/blob/a2dc4304284784d8b2c061764512f0698aa38c21/README.md"
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "path": "README.md",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/README.md"
+    },
+    {
+      "repository": "SoccerNet/sn-reid",
+      "commit": "621e2b0f2d2a7a3e207b8dd747542b6608bf72db",
+      "path": "README.md",
+      "url": "https://github.com/SoccerNet/sn-reid/blob/621e2b0f2d2a7a3e207b8dd747542b6608bf72db/README.md"
+    },
+    {
+      "repository": "SoccerNet/sn-tracking",
+      "commit": "b0bbba35e07ff58010b6313ef8aa59ef663ad392",
+      "path": "README.md",
+      "url": "https://github.com/SoccerNet/sn-tracking/blob/b0bbba35e07ff58010b6313ef8aa59ef663ad392/README.md"
+    },
+    {
+      "repository": "SoccerNet/sn-jersey",
+      "commit": "2f43b48c59eefe0bb5d948888db07f55f51208ad",
+      "path": "README.md",
+      "url": "https://github.com/SoccerNet/sn-jersey/blob/2f43b48c59eefe0bb5d948888db07f55f51208ad/README.md"
+    },
+    {
+      "repository": "MM4SPA/tvcalib",
+      "commit": "1222c5230af2742395d74918ed6f34eb2b9bf7f9",
+      "path": "README.md",
+      "url": "https://github.com/MM4SPA/tvcalib/blob/1222c5230af2742395d74918ed6f34eb2b9bf7f9/README.md"
+    },
+    {
+      "repository": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "path": "README.md",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/README.md"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "README.md",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/README.md"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "path": "README.md",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/README.md"
+    },
+    {
+      "repository": "ML-KULeuven/socceraction",
+      "commit": "93a1242d46c104889205753accaabadb00c45c6d",
+      "path": "README.md",
+      "url": "https://github.com/ML-KULeuven/socceraction/blob/93a1242d46c104889205753accaabadb00c45c6d/README.md"
+    },
+    {
+      "repository": "UnravelSports/unravelsports",
+      "commit": "2bd24d7e2b3cc19cbdba6486c7abb70270a732ad",
+      "path": "README.md",
+      "url": "https://github.com/UnravelSports/unravelsports/blob/2bd24d7e2b3cc19cbdba6486c7abb70270a732ad/README.md"
+    },
+    {
+      "repository": "simula/SoccerChat",
+      "commit": "330b26ed797e985dbb8f5baeaffe0ef91da0906e",
+      "path": "README.md",
+      "url": "https://github.com/simula/SoccerChat/blob/330b26ed797e985dbb8f5baeaffe0ef91da0906e/README.md"
+    },
+    {
+      "repository": "QwenLM/Qwen3-VL",
+      "commit": "96588727e44c78b25ba03ea03b8e12f7e64fd0da",
+      "path": "README.md",
+      "url": "https://github.com/QwenLM/Qwen3-VL/blob/96588727e44c78b25ba03ea03b8e12f7e64fd0da/README.md"
+    },
+    {
+      "repository": "mkoshkina/jersey-number-pipeline",
+      "commit": "007d54e5530a66616ed5081ca35e0028b36aadb5",
+      "path": "README.md",
+      "url": "https://github.com/mkoshkina/jersey-number-pipeline/blob/007d54e5530a66616ed5081ca35e0028b36aadb5/README.md"
+    },
+    {
+      "repository": "tstanczyk95/McBytePlusPlus",
+      "commit": "be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9",
+      "path": "README.md",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/README.md"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "docs/model-zoo.md",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/docs/model-zoo.md"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "path": "LICENSE-COMMERCIAL",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/LICENSE-COMMERCIAL"
+    }
+  ],
+  "repositories": [
+    {
+      "repository": "outstandingcandy/AgentCoach",
+      "commit": "eef7b0c5d757844fbbb1eeafa6a8050a863a6623",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "spindle79/jersey-tracker",
+      "commit": "e8021b51a1e021da058f4acd17e39f3d4ecb5051",
+      "license": "MIT"
+    },
+    {
+      "repository": "acato/soccer-video-pipeline",
+      "commit": "0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "SoccerNet/sn-gamestate",
+      "commit": "1c958345067218297d221e45e1a6405f975f83e0",
+      "license": "GPL-3.0"
+    },
+    {
+      "repository": "MohibShaikh/sportvision",
+      "commit": "972a3ed29d02aa9c7298924fa2ef8aafacd16998",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "Streakfull/Soccer-Tracking",
+      "commit": "9d3488fc88390cbc64eb444eb08e481b79df0aef",
+      "license": null
+    },
+    {
+      "repository": "budun-ov/football-analytics",
+      "commit": "cd2c43fce7f54100500058ac0ff5aba7a10fce94",
+      "license": "AGPL-3.0"
+    },
+    {
+      "repository": "samuehuang/football-cv-analytics",
+      "commit": "dea6fb82841120aff7150872f4c9fd47c04fd9a1",
+      "license": "MIT"
+    },
+    {
+      "repository": "dan-slater/footyviz",
+      "commit": "4493f88d554a80dc3d9858c276173a17786caf8d",
+      "license": "MIT"
+    },
+    {
+      "repository": "a6rahamjr/matchtrace-cv",
+      "commit": "aa61cd6c301238875387df51b0467f401bc0b880",
+      "license": "MIT"
+    },
+    {
+      "repository": "humac/soccer360",
+      "commit": "7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb",
+      "license": null
+    },
+    {
+      "repository": "TrackingLaboratory/tracklab",
+      "commit": "5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2",
+      "license": "MIT"
+    },
+    {
+      "repository": "JeremieOchin/FOOTPASS",
+      "commit": "f63f37c1a0c6bcebf568a8ce716495a459376af5",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "OpenSportsLab/opensportslib",
+      "commit": "b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68",
+      "license": "AGPL-3.0"
+    },
+    {
+      "repository": "roboflow/sports",
+      "commit": "42c80c06b6b65a7f89455b89fe31cdf4c38ba227",
+      "license": "MIT"
+    },
+    {
+      "repository": "VlSomers/prtreid",
+      "commit": "30617a75967e84d5d516959c4b84cbeea6f56493",
+      "license": "NOASSERTION"
+    },
+    {
+      "repository": "VlSomers/bpbreid",
+      "commit": "a2dc4304284784d8b2c061764512f0698aa38c21",
+      "license": "NOASSERTION"
+    },
+    {
+      "repository": "mkoshkina/jersey-number-pipeline",
+      "commit": "007d54e5530a66616ed5081ca35e0028b36aadb5",
+      "license": "NOASSERTION"
+    },
+    {
+      "repository": "FoundationVision/ByteTrack",
+      "commit": "d1bf0191adff59bc8fcfeaa0b33d3d1642552a99",
+      "license": "MIT"
+    },
+    {
+      "repository": "QwenLM/Qwen3.8",
+      "commit": "2ea10dc725823bf7c3e21ce8557cbe15245132ae",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "NirAharon/BoT-SORT",
+      "commit": "251985436d6712aaf682aaaf5f71edb4987224bd",
+      "license": "MIT"
+    },
+    {
+      "repository": "dyhBUPT/StrongSORT",
+      "commit": "ee995076da5083e28d0da1f885297df62705ebd7",
+      "license": "GPL-3.0"
+    },
+    {
+      "repository": "ML-KULeuven/socceraction",
+      "commit": "93a1242d46c104889205753accaabadb00c45c6d",
+      "license": "MIT"
+    },
+    {
+      "repository": "UnravelSports/unravelsports",
+      "commit": "2bd24d7e2b3cc19cbdba6486c7abb70270a732ad",
+      "license": "MPL-2.0"
+    },
+    {
+      "repository": "roboflow/rf-detr",
+      "commit": "e56ec6152b0eb1ac8bcca8690aa7ba59761d861f",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "Peterande/D-FINE",
+      "commit": "956d1709314c2c6a4df6f34de232054578a7449f",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "lyuwenyu/RT-DETR",
+      "commit": "df2a96c8c3a098567a1149bf0248da6efe6d495d",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "tstanczyk95/McBytePlusPlus",
+      "commit": "be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9",
+      "license": "Apache-2.0"
+    },
+    {
+      "repository": "sjc042/gta-link",
+      "commit": "e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca",
+      "license": "MIT"
+    },
+    {
+      "repository": "MM4SPA/tvcalib",
+      "commit": "1222c5230af2742395d74918ed6f34eb2b9bf7f9",
+      "license": "MIT"
+    },
+    {
+      "repository": "erbo-dev/Scoutra",
+      "commit": "a6a02f176f55dd044112951506fa63a919ca7e5b",
+      "license": null
+    },
+    {
+      "repository": "SoccerNet/sn-reid",
+      "commit": "621e2b0f2d2a7a3e207b8dd747542b6608bf72db",
+      "license": "MIT"
+    },
+    {
+      "repository": "SoccerNet/sn-tracking",
+      "commit": "b0bbba35e07ff58010b6313ef8aa59ef663ad392",
+      "license": null
+    },
+    {
+      "repository": "SoccerNet/sn-jersey",
+      "commit": "2f43b48c59eefe0bb5d948888db07f55f51208ad",
+      "license": null
+    },
+    {
+      "repository": "simula/SoccerChat",
+      "commit": "330b26ed797e985dbb8f5baeaffe0ef91da0906e",
+      "license": null
+    },
+    {
+      "repository": "QwenLM/Qwen3-VL",
+      "commit": "96588727e44c78b25ba03ea03b8e12f7e64fd0da",
+      "license": "Apache-2.0"
+    }
+  ],
+  "source_references": {
+    "Scoutra-readme": {
+      "title": "erbo-dev/Scoutra — README.md",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/README.md"
+    },
+    "Scoutra-package": {
+      "title": "erbo-dev/Scoutra — package.json",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/package.json"
+    },
+    "Scoutra-context": {
+      "title": "erbo-dev/Scoutra — docs/scoutra-product-context.md",
+      "url": "https://github.com/erbo-dev/Scoutra/blob/a6a02f176f55dd044112951506fa63a919ca7e5b/docs/scoutra-product-context.md"
+    },
+    "A-readme": {
+      "title": "outstandingcandy/AgentCoach — README.md",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/README.md"
+    },
+    "A-tracking": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/tracking/orchestrator.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/orchestrator.py"
+    },
+    "A-tracker": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/tracking/strongsort/tracker.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/tracker.py"
+    },
+    "A-gates": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/tracking/strongsort/gates.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/gates.py"
+    },
+    "A-lifecycle": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/tracking/strongsort/lifecycle.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/strongsort/lifecycle.py"
+    },
+    "A-consolidate": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/track_consolidation/_consolidator.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/track_consolidation/_consolidator.py"
+    },
+    "A-runner": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/track_consolidation/_runner.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/track_consolidation/_runner.py"
+    },
+    "A-reid": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/tracking/reid/prtreid_extractor.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/tracking/reid/prtreid_extractor.py"
+    },
+    "A-pipeline": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/pipeline/_pipeline.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/pipeline/_pipeline.py"
+    },
+    "A-calib": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/field_registration/fixed_camera_runner.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/field_registration/fixed_camera_runner.py"
+    },
+    "A-shot": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/events/detectors/shot.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/events/detectors/shot.py"
+    },
+    "A-pass": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/events/detectors/pass_detector.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/events/detectors/pass_detector.py"
+    },
+    "A-events": {
+      "title": "outstandingcandy/AgentCoach — goalinsight/events/_orchestrator.py",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/goalinsight/events/_orchestrator.py"
+    },
+    "A-notice": {
+      "title": "outstandingcandy/AgentCoach — NOTICE",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/NOTICE"
+    },
+    "A-offline": {
+      "title": "outstandingcandy/AgentCoach — deploy/offline/README.md",
+      "url": "https://github.com/outstandingcandy/AgentCoach/blob/eef7b0c5d757844fbbb1eeafa6a8050a863a6623/deploy/offline/README.md"
+    },
+    "J-readme": {
+      "title": "spindle79/jersey-tracker — README.md",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/README.md"
+    },
+    "J-detect": {
+      "title": "spindle79/jersey-tracker — scripts/detect_track.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/detect_track.py"
+    },
+    "J-ocr": {
+      "title": "spindle79/jersey-tracker — scripts/jersey_ocr.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/jersey_ocr.py"
+    },
+    "J-find": {
+      "title": "spindle79/jersey-tracker — scripts/find_player.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/find_player.py"
+    },
+    "J-chunks": {
+      "title": "spindle79/jersey-tracker — scripts/run_parallel.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/run_parallel.py"
+    },
+    "J-merge": {
+      "title": "spindle79/jersey-tracker — scripts/merge_chunks.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/merge_chunks.py"
+    },
+    "J-io": {
+      "title": "spindle79/jersey-tracker — scripts/trackio.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/trackio.py"
+    },
+    "J-cross": {
+      "title": "spindle79/jersey-tracker — scripts/cross_lens_merge.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/cross_lens_merge.py"
+    },
+    "J-project": {
+      "title": "spindle79/jersey-tracker — scripts/project_to_pitch.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/project_to_pitch.py"
+    },
+    "J-calib": {
+      "title": "spindle79/jersey-tracker — scripts/calibrate_match.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/calibrate_match.py"
+    },
+    "J-possession": {
+      "title": "spindle79/jersey-tracker — scripts/possession.py",
+      "url": "https://github.com/spindle79/jersey-tracker/blob/e8021b51a1e021da058f4acd17e39f3d4ecb5051/scripts/possession.py"
+    },
+    "C-readme": {
+      "title": "acato/soccer-video-pipeline — README.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/README.md"
+    },
+    "C-status": {
+      "title": "acato/soccer-video-pipeline — docs/pipeline_status.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/pipeline_status.md"
+    },
+    "C-arch": {
+      "title": "acato/soccer-video-pipeline — docs/architecture.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/architecture.md"
+    },
+    "C-config": {
+      "title": "acato/soccer-video-pipeline — src/config.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/config.py"
+    },
+    "C-dual": {
+      "title": "acato/soccer-video-pipeline — src/detection/dual_pass_detector.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/dual_pass_detector.py"
+    },
+    "C-frames": {
+      "title": "acato/soccer-video-pipeline — src/detection/frame_sampler.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/frame_sampler.py"
+    },
+    "C-triage": {
+      "title": "acato/soccer-video-pipeline — src/detection/triage_scanner.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/triage_scanner.py"
+    },
+    "C-models": {
+      "title": "acato/soccer-video-pipeline — src/detection/models.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/src/detection/models.py"
+    },
+    "C-train": {
+      "title": "acato/soccer-video-pipeline — scripts/train_lora_v11.sh",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/train_lora_v11.sh"
+    },
+    "C-gpu": {
+      "title": "acato/soccer-video-pipeline — docs/vllm-gpu-orchestration.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/vllm-gpu-orchestration.md"
+    },
+    "C-upgrade": {
+      "title": "acato/soccer-video-pipeline — docs/gpu-upgrade-analysis.md",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/docs/gpu-upgrade-analysis.md"
+    },
+    "C-combined": {
+      "title": "acato/soccer-video-pipeline — scripts/combined_pipeline.py",
+      "url": "https://github.com/acato/soccer-video-pipeline/blob/0f7e01e46e4023ed1bc456a8cdaf7ecb62f764b1/scripts/combined_pipeline.py"
+    },
+    "G-readme": {
+      "title": "SoccerNet/sn-gamestate — README.md",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/README.md"
+    },
+    "G-config": {
+      "title": "SoccerNet/sn-gamestate — sn_gamestate/configs/soccernet.yaml",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/configs/soccernet.yaml"
+    },
+    "G-reid": {
+      "title": "SoccerNet/sn-gamestate — sn_gamestate/reid/prtreid_api.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/reid/prtreid_api.py"
+    },
+    "G-reidcfg": {
+      "title": "SoccerNet/sn-gamestate — sn_gamestate/configs/modules/reid/prtreid.yaml",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/configs/modules/reid/prtreid.yaml"
+    },
+    "G-jersey": {
+      "title": "SoccerNet/sn-gamestate — sn_gamestate/jersey/voting_tracklet_jn_api.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/jersey/voting_tracklet_jn_api.py"
+    },
+    "G-team": {
+      "title": "SoccerNet/sn-gamestate — sn_gamestate/team/tracklet_team_clustering_api.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/team/tracklet_team_clustering_api.py"
+    },
+    "G-project": {
+      "title": "SoccerNet/sn-gamestate — sn_gamestate/calibration/bbox2pitch.py",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/sn_gamestate/calibration/bbox2pitch.py"
+    },
+    "G-license": {
+      "title": "SoccerNet/sn-gamestate — LICENSE",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/LICENSE"
+    },
+    "G-pyproject": {
+      "title": "SoccerNet/sn-gamestate — pyproject.toml",
+      "url": "https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/pyproject.toml"
+    },
+    "S-readme": {
+      "title": "MohibShaikh/sportvision — README.md",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/README.md"
+    },
+    "S-pipeline": {
+      "title": "MohibShaikh/sportvision — src/sportvision/pipeline.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/pipeline.py"
+    },
+    "S-track": {
+      "title": "MohibShaikh/sportvision — src/sportvision/tracking.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/tracking.py"
+    },
+    "S-detect": {
+      "title": "MohibShaikh/sportvision — src/sportvision/detection.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/detection.py"
+    },
+    "S-speed": {
+      "title": "MohibShaikh/sportvision — src/sportvision/analytics/speed.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/analytics/speed.py"
+    },
+    "S-poss": {
+      "title": "MohibShaikh/sportvision — src/sportvision/analytics/possession.py",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/src/sportvision/analytics/possession.py"
+    },
+    "S-eval": {
+      "title": "MohibShaikh/sportvision — docs/evaluation/README.md",
+      "url": "https://github.com/MohibShaikh/sportvision/blob/972a3ed29d02aa9c7298924fa2ef8aafacd16998/docs/evaluation/README.md"
+    },
+    "T-readme": {
+      "title": "Streakfull/Soccer-Tracking — README.md",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/README.md"
+    },
+    "T-main": {
+      "title": "Streakfull/Soccer-Tracking — src/TrackingPipeline/main.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/TrackingPipeline/main.py"
+    },
+    "T-hm": {
+      "title": "Streakfull/Soccer-Tracking — src/pytorchmodels/DeepIOUTracker/HMReidTracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/pytorchmodels/DeepIOUTracker/HMReidTracker.py"
+    },
+    "T-jid": {
+      "title": "Streakfull/Soccer-Tracking — src/hm_sort_jid/tracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/hm_sort_jid/tracker.py"
+    },
+    "T-app": {
+      "title": "Streakfull/Soccer-Tracking — src/hm_sort_app/tracker.py",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/hm_sort_app/tracker.py"
+    },
+    "T-config": {
+      "title": "Streakfull/Soccer-Tracking — src/configs/global_configs.yaml",
+      "url": "https://github.com/Streakfull/Soccer-Tracking/blob/9d3488fc88390cbc64eb444eb08e481b79df0aef/src/configs/global_configs.yaml"
+    },
+    "B-readme": {
+      "title": "budun-ov/football-analytics — README.md",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/README.md"
+    },
+    "B-runner": {
+      "title": "budun-ov/football-analytics — src/runner.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/runner.py"
+    },
+    "B-track": {
+      "title": "budun-ov/football-analytics — src/detection/tracker.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/detection/tracker.py"
+    },
+    "B-calib": {
+      "title": "budun-ov/football-analytics — src/calibration/tvcalib_runner.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/calibration/tvcalib_runner.py"
+    },
+    "B-team": {
+      "title": "budun-ov/football-analytics — src/team/classifier.py",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/src/team/classifier.py"
+    },
+    "B-license": {
+      "title": "budun-ov/football-analytics — LICENSE",
+      "url": "https://github.com/budun-ov/football-analytics/blob/cd2c43fce7f54100500058ac0ff5aba7a10fce94/LICENSE"
+    },
+    "H-readme": {
+      "title": "samuehuang/football-cv-analytics — README.md",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/README.md"
+    },
+    "H-run": {
+      "title": "samuehuang/football-cv-analytics — run_pipeline.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/run_pipeline.py"
+    },
+    "H-track": {
+      "title": "samuehuang/football-cv-analytics — src/player/tracking.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/player/tracking.py"
+    },
+    "H-identity": {
+      "title": "samuehuang/football-cv-analytics — src/analytics/identity_qa.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/analytics/identity_qa.py"
+    },
+    "H-data": {
+      "title": "samuehuang/football-cv-analytics — src/analytics/build_tactical_identity_aware_dataset.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/analytics/build_tactical_identity_aware_dataset.py"
+    },
+    "H-events": {
+      "title": "samuehuang/football-cv-analytics — src/events/engine.py",
+      "url": "https://github.com/samuehuang/football-cv-analytics/blob/dea6fb82841120aff7150872f4c9fd47c04fd9a1/src/events/engine.py"
+    },
+    "F-readme": {
+      "title": "dan-slater/footyviz — README.md",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/README.md"
+    },
+    "F-identity": {
+      "title": "dan-slater/footyviz — src/fv/identity.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/identity.py"
+    },
+    "F-track": {
+      "title": "dan-slater/footyviz — src/fv/reid_track.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/reid_track.py"
+    },
+    "F-job": {
+      "title": "dan-slater/footyviz — src/fv/job.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/job.py"
+    },
+    "F-stats": {
+      "title": "dan-slater/footyviz — src/fv/stats.py",
+      "url": "https://github.com/dan-slater/footyviz/blob/4493f88d554a80dc3d9858c276173a17786caf8d/src/fv/stats.py"
+    },
+    "M-readme": {
+      "title": "a6rahamjr/matchtrace-cv — README.md",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/README.md"
+    },
+    "M-pipeline": {
+      "title": "a6rahamjr/matchtrace-cv — src/matchtrace/inference/pipeline.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/inference/pipeline.py"
+    },
+    "M-track": {
+      "title": "a6rahamjr/matchtrace-cv — src/matchtrace/inference/tracker.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/inference/tracker.py"
+    },
+    "M-eval": {
+      "title": "a6rahamjr/matchtrace-cv — src/matchtrace/evaluation/evaluate.py",
+      "url": "https://github.com/a6rahamjr/matchtrace-cv/blob/aa61cd6c301238875387df51b0467f401bc0b880/src/matchtrace/evaluation/evaluate.py"
+    },
+    "360-readme": {
+      "title": "humac/soccer360 — README.md",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/README.md"
+    },
+    "360-pipeline": {
+      "title": "humac/soccer360 — src/pipeline.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/pipeline.py"
+    },
+    "360-track": {
+      "title": "humac/soccer360 — src/tracker.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/tracker.py"
+    },
+    "360-cluster": {
+      "title": "humac/soccer360 — src/player_cluster.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/player_cluster.py"
+    },
+    "360-watch": {
+      "title": "humac/soccer360 — src/watcher.py",
+      "url": "https://github.com/humac/soccer360/blob/7b5546c8d0a648dd4c5037dfc70a9d0b09ee3fbb/src/watcher.py"
+    },
+    "L-engine": {
+      "title": "TrackingLaboratory/tracklab — tracklab/engine/offline.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/engine/offline.py"
+    },
+    "L-state": {
+      "title": "TrackingLaboratory/tracklab — tracklab/datastruct/tracker_state.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/datastruct/tracker_state.py"
+    },
+    "L-config": {
+      "title": "TrackingLaboratory/tracklab — tracklab/configs/modules/track/bpbreid_strong_sort.yaml",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/tracklab/configs/modules/track/bpbreid_strong_sort.yaml"
+    },
+    "L-parts": {
+      "title": "TrackingLaboratory/tracklab — plugins/track/bpbreid_strong_sort/sort/nn_matching.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/plugins/track/bpbreid_strong_sort/sort/nn_matching.py"
+    },
+    "L-tracker": {
+      "title": "TrackingLaboratory/tracklab — plugins/track/bpbreid_strong_sort/sort/tracker.py",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/plugins/track/bpbreid_strong_sort/sort/tracker.py"
+    },
+    "L-readme": {
+      "title": "TrackingLaboratory/tracklab — README.md",
+      "url": "https://github.com/TrackingLaboratory/tracklab/blob/5767e86c32a6d6c68e2fc8ae7311f558fff6c7b2/README.md"
+    },
+    "P-readme": {
+      "title": "VlSomers/prtreid — README.md",
+      "url": "https://github.com/VlSomers/prtreid/blob/30617a75967e84d5d516959c4b84cbeea6f56493/README.md"
+    },
+    "P-license": {
+      "title": "VlSomers/prtreid — LICENSE",
+      "url": "https://github.com/VlSomers/prtreid/blob/30617a75967e84d5d516959c4b84cbeea6f56493/LICENSE"
+    },
+    "BP-license": {
+      "title": "VlSomers/bpbreid — LICENSE",
+      "url": "https://github.com/VlSomers/bpbreid/blob/a2dc4304284784d8b2c061764512f0698aa38c21/LICENSE"
+    },
+    "GTA-code": {
+      "title": "sjc042/gta-link — refine_tracklets.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/refine_tracklets.py"
+    },
+    "GTA-batch": {
+      "title": "sjc042/gta-link — refine_tracklets_batched.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/refine_tracklets_batched.py"
+    },
+    "GTA-readme": {
+      "title": "sjc042/gta-link — README.md",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/README.md"
+    },
+    "GTA-gen": {
+      "title": "sjc042/gta-link — generate_tracklets.py",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/generate_tracklets.py"
+    },
+    "GTA-license": {
+      "title": "sjc042/gta-link — LICENSE",
+      "url": "https://github.com/sjc042/gta-link/blob/e4d5cc4065ceb1ec3fa9dc7478455f13a8d7f9ca/LICENSE"
+    },
+    "MC-code": {
+      "title": "tstanczyk95/McBytePlusPlus — yolox/tracker/mcbyteplusplus_tracker__with_reid.py",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/yolox/tracker/mcbyteplusplus_tracker__with_reid.py"
+    },
+    "MC-readme": {
+      "title": "tstanczyk95/McBytePlusPlus — README.md",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/README.md"
+    },
+    "MC-install": {
+      "title": "tstanczyk95/McBytePlusPlus — INSTALLATION.md",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/INSTALLATION.md"
+    },
+    "MC-license": {
+      "title": "tstanczyk95/McBytePlusPlus — LICENSE",
+      "url": "https://github.com/tstanczyk95/McBytePlusPlus/blob/be1bbc03f18e33e93e0a359bbcbfdfc4dc4ab6b9/LICENSE"
+    },
+    "FP-readme": {
+      "title": "JeremieOchin/FOOTPASS — README.md",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/README.md"
+    },
+    "FP-taad": {
+      "title": "JeremieOchin/FOOTPASS — models/model_TAAD_baseline.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/models/model_TAAD_baseline.py"
+    },
+    "FP-gnn": {
+      "title": "JeremieOchin/FOOTPASS — models/model_GNN.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/models/model_GNN.py"
+    },
+    "FP-dst": {
+      "title": "JeremieOchin/FOOTPASS — models/model_DST.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/models/model_DST.py"
+    },
+    "FP-run": {
+      "title": "JeremieOchin/FOOTPASS — run_TAAD_on_matches.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/run_TAAD_on_matches.py"
+    },
+    "FP-eval": {
+      "title": "JeremieOchin/FOOTPASS — evaluation.py",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/evaluation.py"
+    },
+    "FP-license": {
+      "title": "JeremieOchin/FOOTPASS — LICENSE",
+      "url": "https://github.com/JeremieOchin/FOOTPASS/blob/f63f37c1a0c6bcebf568a8ce716495a459376af5/LICENSE"
+    },
+    "OSL-model": {
+      "title": "OpenSportsLab/opensportslib — opensportslib/models/base/qwen_vl_native.py",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/opensportslib/models/base/qwen_vl_native.py"
+    },
+    "OSL-zoo": {
+      "title": "OpenSportsLab/opensportslib — docs/model-zoo.md",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/docs/model-zoo.md"
+    },
+    "OSL-license": {
+      "title": "OpenSportsLab/opensportslib — LICENSE",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/LICENSE"
+    },
+    "OSL-commercial": {
+      "title": "OpenSportsLab/opensportslib — LICENSE-COMMERCIAL",
+      "url": "https://github.com/OpenSportsLab/opensportslib/blob/b2fe8f16a35336d93b1b0eabe1741bbbbc36cd68/LICENSE-COMMERCIAL"
+    },
+    "RF-readme": {
+      "title": "roboflow/rf-detr — README.md",
+      "url": "https://github.com/roboflow/rf-detr/blob/e56ec6152b0eb1ac8bcca8690aa7ba59761d861f/README.md"
+    },
+    "RF-code": {
+      "title": "roboflow/rf-detr — src/rfdetr/detr.py",
+      "url": "https://github.com/roboflow/rf-detr/blob/e56ec6152b0eb1ac8bcca8690aa7ba59761d861f/src/rfdetr/detr.py"
+    },
+    "D-code": {
+      "title": "Peterande/D-FINE — src/zoo/dfine/dfine_decoder.py",
+      "url": "https://github.com/Peterande/D-FINE/blob/956d1709314c2c6a4df6f34de232054578a7449f/src/zoo/dfine/dfine_decoder.py"
+    },
+    "D-readme": {
+      "title": "Peterande/D-FINE — README.md",
+      "url": "https://github.com/Peterande/D-FINE/blob/956d1709314c2c6a4df6f34de232054578a7449f/README.md"
+    },
+    "RT-readme": {
+      "title": "lyuwenyu/RT-DETR — README.md",
+      "url": "https://github.com/lyuwenyu/RT-DETR/blob/df2a96c8c3a098567a1149bf0248da6efe6d495d/README.md"
+    },
+    "BYTE-code": {
+      "title": "FoundationVision/ByteTrack — yolox/tracker/byte_tracker.py",
+      "url": "https://github.com/FoundationVision/ByteTrack/blob/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99/yolox/tracker/byte_tracker.py"
+    },
+    "BOT-code": {
+      "title": "NirAharon/BoT-SORT — tracker/bot_sort.py",
+      "url": "https://github.com/NirAharon/BoT-SORT/blob/251985436d6712aaf682aaaf5f71edb4987224bd/tracker/bot_sort.py"
+    },
+    "BOT-gmc": {
+      "title": "NirAharon/BoT-SORT — tracker/gmc.py",
+      "url": "https://github.com/NirAharon/BoT-SORT/blob/251985436d6712aaf682aaaf5f71edb4987224bd/tracker/gmc.py"
+    },
+    "STR-readme": {
+      "title": "dyhBUPT/StrongSORT — README.md",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/README.md"
+    },
+    "STR-af": {
+      "title": "dyhBUPT/StrongSORT — AFLink/AppFreeLink.py",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/AFLink/AppFreeLink.py"
+    },
+    "STR-gsi": {
+      "title": "dyhBUPT/StrongSORT — GSI.py",
+      "url": "https://github.com/dyhBUPT/StrongSORT/blob/ee995076da5083e28d0da1f885297df62705ebd7/GSI.py"
+    },
+    "TV-code": {
+      "title": "MM4SPA/tvcalib — tvcalib/module.py",
+      "url": "https://github.com/MM4SPA/tvcalib/blob/1222c5230af2742395d74918ed6f34eb2b9bf7f9/tvcalib/module.py"
+    },
+    "TV-readme": {
+      "title": "MM4SPA/tvcalib — README.md",
+      "url": "https://github.com/MM4SPA/tvcalib/blob/1222c5230af2742395d74918ed6f34eb2b9bf7f9/README.md"
+    },
+    "R-team": {
+      "title": "roboflow/sports — sports/common/team.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/sports/common/team.py"
+    },
+    "R-main": {
+      "title": "roboflow/sports — examples/soccer/main.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/examples/soccer/main.py"
+    },
+    "R-view": {
+      "title": "roboflow/sports — sports/common/view.py",
+      "url": "https://github.com/roboflow/sports/blob/42c80c06b6b65a7f89455b89fe31cdf4c38ba227/sports/common/view.py"
+    },
+    "JR-main": {
+      "title": "mkoshkina/jersey-number-pipeline — main.py",
+      "url": "https://github.com/mkoshkina/jersey-number-pipeline/blob/007d54e5530a66616ed5081ca35e0028b36aadb5/main.py"
+    },
+    "JR-readme": {
+      "title": "mkoshkina/jersey-number-pipeline — README.md",
+      "url": "https://github.com/mkoshkina/jersey-number-pipeline/blob/007d54e5530a66616ed5081ca35e0028b36aadb5/README.md"
+    },
+    "JR-license": {
+      "title": "mkoshkina/jersey-number-pipeline — license.txt",
+      "url": "https://github.com/mkoshkina/jersey-number-pipeline/blob/007d54e5530a66616ed5081ca35e0028b36aadb5/license.txt"
+    },
+    "SN-track": {
+      "title": "SoccerNet/sn-tracking — README.md",
+      "url": "https://github.com/SoccerNet/sn-tracking/blob/b0bbba35e07ff58010b6313ef8aa59ef663ad392/README.md"
+    },
+    "SN-reid": {
+      "title": "SoccerNet/sn-reid — README.md",
+      "url": "https://github.com/SoccerNet/sn-reid/blob/621e2b0f2d2a7a3e207b8dd747542b6608bf72db/README.md"
+    },
+    "SN-jersey": {
+      "title": "SoccerNet/sn-jersey — README.md",
+      "url": "https://github.com/SoccerNet/sn-jersey/blob/2f43b48c59eefe0bb5d948888db07f55f51208ad/README.md"
+    },
+    "SO-action": {
+      "title": "ML-KULeuven/socceraction — README.md",
+      "url": "https://github.com/ML-KULeuven/socceraction/blob/93a1242d46c104889205753accaabadb00c45c6d/README.md"
+    },
+    "UN-readme": {
+      "title": "UnravelSports/unravelsports — README.md",
+      "url": "https://github.com/UnravelSports/unravelsports/blob/2bd24d7e2b3cc19cbdba6486c7abb70270a732ad/README.md"
+    },
+    "UN-license": {
+      "title": "UnravelSports/unravelsports — LICENSE",
+      "url": "https://github.com/UnravelSports/unravelsports/blob/2bd24d7e2b3cc19cbdba6486c7abb70270a732ad/LICENSE"
+    },
+    "Q-readme": {
+      "title": "QwenLM/Qwen3-VL — README.md",
+      "url": "https://github.com/QwenLM/Qwen3-VL/blob/96588727e44c78b25ba03ea03b8e12f7e64fd0da/README.md"
+    },
+    "Q-new": {
+      "title": "QwenLM/Qwen3.8 — README.md",
+      "url": "https://github.com/QwenLM/Qwen3.8/blob/2ea10dc725823bf7c3e21ce8557cbe15245132ae/README.md"
+    },
+    "CHAT-readme": {
+      "title": "simula/SoccerChat — README.md",
+      "url": "https://github.com/simula/SoccerChat/blob/330b26ed797e985dbb8f5baeaffe0ef91da0906e/README.md"
+    },
+    "P-paper": {
+      "title": "PRTReID paper, Tables 3–6 and §3.2",
+      "url": "https://arxiv.org/html/2401.09942v1"
+    },
+    "G-paper": {
+      "title": "SoccerNet GSR paper",
+      "url": "https://arxiv.org/abs/2404.11335"
+    },
+    "GTA-paper": {
+      "title": "GTA paper",
+      "url": "https://arxiv.org/abs/2411.08216"
+    },
+    "MC-paper": {
+      "title": "McByte++ paper",
+      "url": "https://arxiv.org/abs/2608.15688"
+    },
+    "FP-paper": {
+      "title": "FOOTPASS paper",
+      "url": "https://arxiv.org/abs/2511.16183"
+    },
+    "Q-paper": {
+      "title": "Qwen3-VL technical report",
+      "url": "https://arxiv.org/abs/2511.21631"
+    },
+    "Q35-doc": {
+      "title": "Transformers Qwen3.5 documentation",
+      "url": "https://huggingface.co/docs/transformers/model_doc/qwen3_5"
+    },
+    "Q36-card": {
+      "title": "Official Qwen3.6-35B-A3B model card",
+      "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/345d467b117d1fd5eda9b879a5988de9ae5f47a7/README.md"
+    },
+    "Q35-card": {
+      "title": "Official Qwen3.5-9B model card",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md"
+    },
+    "Q32-card": {
+      "title": "Official Qwen3-VL-32B model card",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-32B-Instruct/blob/0cfaf48183f594c314753d30a4c4974bc75f3ccb/README.md"
+    },
+    "C-weights": {
+      "title": "acato v11 FP8 checkpoint card",
+      "url": "https://huggingface.co/acatorcini/qwen3-vl-32b-soccer-v11-fp8/blob/ab56ac6743fc4f5ec299ed951f989d37f5874c56/README.md"
+    },
+    "C-adapter": {
+      "title": "acato v11 LoRA card",
+      "url": "https://huggingface.co/acatorcini/qwen3-vl-32b-soccer-v11-lora/blob/5aca84c3c96f42d582346710fd22322ae0ed6d6b/README.md"
+    },
+    "C-ball": {
+      "title": "acato soccer ball checkpoint card",
+      "url": "https://huggingface.co/acatorcini/yolov9-soccer-ball/blob/b30df5abc9f3eda4a9d326d953be12b3541a14b4/README.md"
+    },
+    "CHAT-card": {
+      "title": "SoccerChat checkpoint card",
+      "url": "https://huggingface.co/SimulaMet/SoccerChat-qwen2-vl-7b/blob/29871536004c0ac788af09cbb87969ab9f6e1410/README.md"
+    },
+    "CHAT-paper": {
+      "title": "SoccerChat paper",
+      "url": "https://arxiv.org/abs/2505.16630"
+    },
+    "OSL-card": {
+      "title": "OSL Qwen3-VL XFoul checkpoint card",
+      "url": "https://huggingface.co/OpenSportsLab/OSL-VQA-XFOUL-qwen3-8B-VL-lora/blob/8c7721ff5fd74a1ad27f64203aa3218c5f9f5db1/README.md"
+    },
+    "QA-card": {
+      "title": "Soccer QA 4B checkpoint card",
+      "url": "https://huggingface.co/sportsvision/soccer-qa-4b/blob/e0ef6b8b795fb91c0998c089ab2dc5c291b1ce05/README.md"
+    },
+    "TSI-card": {
+      "title": "SoccerNet VLM-TSI checkpoint card",
+      "url": "https://huggingface.co/kpyu/soccernet-vlm-tsi/blob/7dfea238e0fdc65b0562821257e66a6170d43051/README.md"
+    },
+    "IV-card": {
+      "title": "InternVL3.5-8B official checkpoint",
+      "url": "https://huggingface.co/OpenGVLab/InternVL3_5-8B"
+    },
+    "IV-video": {
+      "title": "InternVideo2.5 official implementation",
+      "url": "https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo2.5"
+    },
+    "V-quant": {
+      "title": "vLLM 0.19.1 quantization hardware matrix",
+      "url": "https://docs.vllm.ai/en/v0.19.1/features/quantization/#supported-hardware"
+    },
+    "V-recipe": {
+      "title": "vLLM Qwen3.5/3.6 serving recipe",
+      "url": "https://github.com/vllm-project/recipes/blob/main/Qwen/Qwen3.5.md"
+    },
+    "Z-prt": {
+      "title": "PRTReID checkpoint archive and license metadata",
+      "url": "https://zenodo.org/records/10653453"
+    },
+    "Z-hrnet": {
+      "title": "HRNet/BPBReID checkpoint archive and license metadata",
+      "url": "https://zenodo.org/records/10604211"
+    },
+    "DS-fp": {
+      "title": "FOOTPASS dataset card and access terms",
+      "url": "https://huggingface.co/datasets/SoccerNet/SN-PCBAS-2026"
+    },
+    "DS-gsr": {
+      "title": "SoccerNet GSR dataset card",
+      "url": "https://huggingface.co/datasets/SoccerNet/SN-GSR-2024"
+    },
+    "DS-chat": {
+      "title": "SoccerChat dataset terms",
+      "url": "https://huggingface.co/datasets/SimulaMet/SoccerChat"
+    },
+    "UL-license": {
+      "title": "Ultralytics licensing",
+      "url": "https://www.ultralytics.com/license"
+    }
+  },
+  "limitations": [
+    "No execution/inference/training/benchmarks",
+    "Accessible Scoutra repository is a frontend",
+    "No Scoutra match frames or annotations accessible",
+    "Designated /codex output directory not writable in selected cloud environment; inline fallback required"
+  ]
+}

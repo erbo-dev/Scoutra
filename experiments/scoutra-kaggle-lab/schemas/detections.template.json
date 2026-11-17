@@ -1,0 +1,5 @@
+{
+  "schema_version": "scoutra-ground-truth/1.0",
+  "coordinate_system": "native_image_xyxy_pixels",
+  "frames": []
+}

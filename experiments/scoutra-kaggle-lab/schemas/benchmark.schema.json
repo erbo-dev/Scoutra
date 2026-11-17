@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scoutra-benchmark-1.0",
+  "title": "Scoutra canonical prediction rows (JSON representation; Arrow schemas authoritative)",
+  "type": "object",
+  "properties": {
+    "detections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "clip_id",
+          "scene_id",
+          "frame_index",
+          "timestamp_s",
+          "detection_id",
+          "class_id",
+          "x1",
+          "y1",
+          "x2",
+          "y2",
+          "confidence"
+        ],
+        "properties": {
+          "clip_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scene_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "frame_index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "timestamp_s": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "detection_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "class_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "x1": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "y1": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "x2": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "y2": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "clip_id",
+          "scene_id",
+          "frame_index",
+          "timestamp_s",
+          "tracklet_id",
+          "detection_id",
+          "class_id",
+          "x1",
+          "y1",
+          "x2",
+          "y2",
+          "confidence"
+        ],
+        "properties": {
+          "clip_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scene_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "frame_index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "timestamp_s": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "tracklet_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "detection_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "class_id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "x1": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "y1": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "x2": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "y2": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "identities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "clip_id",
+          "scene_id",
+          "frame_index",
+          "tracklet_id",
+          "player_id",
+          "confidence",
+          "state",
+          "evidence"
+        ],
+        "properties": {
+          "clip_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scene_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "frame_index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "tracklet_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "player_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "state": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "embeddings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "crop_id",
+          "head",
+          "part_index",
+          "visibility",
+          "feature_path",
+          "array_index"
+        ],
+        "properties": {
+          "crop_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "head": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "part_index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "visibility": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "feature_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "array_index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "calibration": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "clip_id",
+          "scene_id",
+          "frame_index",
+          "homography",
+          "pitch_length_m",
+          "pitch_width_m",
+          "confidence",
+          "coordinate_system"
+        ],
+        "properties": {
+          "clip_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scene_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "frame_index": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "homography": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pitch_length_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "pitch_width_m": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "coordinate_system": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "clip_id",
+          "scene_id",
+          "start_s",
+          "end_s",
+          "event_type",
+          "actor_id",
+          "confidence",
+          "evidence"
+        ],
+        "properties": {
+          "clip_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scene_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_s": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "end_s": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "event_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actor_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confidence": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

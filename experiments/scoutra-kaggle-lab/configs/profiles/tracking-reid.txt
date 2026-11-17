@@ -1,0 +1,5 @@
+-r base.txt
+torch==2.6.0
+torchvision==0.21.0
+supervision==0.25.1
+boxmot==16.0.10

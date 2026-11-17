@@ -1,0 +1,16 @@
+schema_version: scoutra-benchmark/1.0
+execute: false
+seed: 1729
+gpu_index: 0
+output_root: /kaggle/working/scoutra/results
+experiment_id: C-prtreid_global-001
+crops: /kaggle/working/scoutra/crops/reid-v1/crops.json
+model:
+  method: prtreid_global
+  checkpoint:
+    path: SET_LOCAL_CHECKPOINT_PATH
+    sha256: ''
+    license_reviewed: false
+test_embeddings:
+- globl
+validation_distance_threshold: null

@@ -1,0 +1,29 @@
+# Installation / hardware matrix
+
+**No inference profile has been installed or validated here.** Only isolated CPU utility dependencies were used for schema/notebook tests. The profiles are proposed exact direct pins, not claims of a compatible full transitive solve. Kaggle's current image must be recorded; do not change production dependencies.
+
+| Isolated profile | Proposed foundation | Included path / blocker | Two-T4 interpretation |
+|---|---|---|---|
+| Audit/base | Native Kaggle Python with NumPy1.26.4, SciPy1.15.2, pandas2.2.3, Arrow19, OpenCV4.11, Pillow11 | CPU inventory/cache/annotations; no torch needed for audit | CPU job; GPUs not needed |
+| RF-DETR | torch2.6/torchvision0.21, RF-DETR1.4.3, Transformers4.57.1/PEFT0.17.1, supervision0.25.1 | One Small/Medium at a time; peft/rf100vl/transitive requirements must pass pip check; all backbone assets local | Single16GB candidate; fit and actual timing unknown |
+| RT-DETR HF | torch2.6/torchvision0.21, Transformers4.57.1 | Local full snapshot; class map/processor frozen | Single16GB candidate, not proven fit |
+| D-FINE | torch2.6/torchvision0.21, selected timm/einops/faster-coco-eval pins + pinned upstream source | Inference interface inspected; upstream import/dependency solve unexecuted; YAML and checkpoint trust required | Small/N batch-one candidate; no published speed transplanted |
+| Tracking/OSNet | torch2.6/torchvision0.21, BoxMOT16.0.10, supervision0.25.1 | Explicit port versions; OSNet local asset; downstream torchvision/NumPy ABI checks | Association CPU; GPU feature extraction on selected T4 |
+| AgentCoach ReID-only | base numerical stack + pinned standalone consolidation module | No full AgentCoach install/Claude/Bedrock needed; consumes saved global embeddings | Offline CPU; does not need combined VRAM |
+| PRT/BPB/GSR | Upstream GSR Python3.9 and torch1.13.1, TrackLab1.3.24 and legacy ecosystem | Cannot pip GSR Python<3.10 requirement into a Python3.11/3.12 kernel. Needs separately provisioned compatible kernel/container/runtime and asset-complete checkpoint config | Memory likely manageable for crop batches, **environment and fit unverified**; never force modern installs |
+| GTA | Exact source commit, upstream documented old torchreid/setuptools/sklearn requirements | No tested lock here; pairwise offline memory and feature/MOT conversions remain blockers | CPU/batched offline candidate; H100 does not fix CPU pairwise-memory algorithm |
+| McByte++ | Exact upstream detector/mask/Re-ID stack | Required assets and mask producer/export not yet proven; no speculative universal requirements file | Fit **N/A** until full pipeline specified; may need separate mask stage/environment |
+| Official TrackEval | Separate Python<=3.11, NumPy1.23.5, SciPy1.10.1, original source pin | Old source uses np.float/int, incompatible with modern NumPy. Separate evaluation profile provided; do not use differently maintained PyPI fork unnoticed | CPU only |
+| Small Video-VLM | New model-compatible Transformers/PEFT/bitsandbytes/Qwen-VL utilities | **Specification only.** Never share the RF-DETR Transformers pin by assumption. Freeze exact adapter/base/quantization/backend after load smoke validation | One7/8/9B4-bit candidate at low frames/pixels; capacity unknown incl KV cache. Second GPU runs independent job or explicit validated sharding |
+| acato32B / Qwen35B | Matching quantization and serving engine with valid multi-GPU support | Deferred; no confirmed T4 configuration; compressed-tensors/FP8 and tensor-parallel capability are version/hardware dependent | Not enabled. Choose larger-memory future GPU only after exact configuration confirmation |
+
+Profiles are under `configs/profiles/`; legacy/VLM environments are deliberately not collapsed into one requirements file. After installing in a new Kaggle session, run `python -m pip check`, record `pip freeze`, Python/CUDA/device versions and resolved wheels. If conflicting, record the failed solve; produce a reviewed new profile/run condition rather than silent upgrades. No `--no-deps` escape hatch is prescribed.
+
+## Resource estimates, not measurements
+A 60 s30fps clip has1800 frames. Native uncompressed RGB pixels alone occupy~4.98GB at1280×720 or~11.20GB at1920×1080 (decimal GB); PNG size is content-dependent and temporary copies add disk cost. This is arithmetic, not measured video/storage usage. Start with one20s interval and inspect disk. No throughput or processing-duration estimate is asserted.
+
+Flat float32 storage for10,000 global512-D embeddings is~20.5MB; seven512-D parts is~143.4MB plus visibility/masks/metadata. A dense float32 N×N distance matrix at N=100,000 is40GB before overhead: use bounded batches/candidate gating and record approximations. These are shape calculations, not peak RAM measurements.
+
+Measure elapsed time and selected-device allocated/reserved peaks on actual runs. Keep GPU indices explicit. Two16-GB T4s do not automatically supply32GB to a model. Data parallelism duplicates weights; pipeline/tensor sharding requires supported code and adds overhead. T4 lacks native BF16/FP8 execution assumed by some modern recipes; choose documented supported dtype/kernel rather than equating a stored FP8 checkpoint to working T4 inference. Future H100 testing must record exact GPU variant/VRAM, driver, precision, engine and video settings; no speed extrapolation from T4.
+
+Sources: pinned upstream files and source-distribution metadata linked in MODEL_INVENTORY; [GSR pyproject](https://github.com/SoccerNet/sn-gamestate/blob/1c958345067218297d221e45e1a6405f975f83e0/pyproject.toml); [NVIDIA T4 specifications](https://www.nvidia.com/en-us/data-center/tesla-t4/); [TrackEval loader](https://github.com/JonathonLuiten/TrackEval/blob/12c8791b303e0a0b50f753af204249e622d0281a/trackeval/datasets/mot_challenge_2d_box.py).

@@ -1,0 +1,18 @@
+schema_version: scoutra-benchmark/1.0
+execute: false
+seed: 1729
+gpu_index: 0
+output_root: /kaggle/working/scoutra/results
+experiment_id: A-rtdetr_hf-001
+frames: /kaggle/working/scoutra/cache/stage1-v1/frames.json
+ground_truth: /kaggle/working/scoutra/annotations/detections.json
+evaluation_score_threshold: 0.25
+model:
+  method: rtdetr_hf
+  checkpoint:
+    path: SET_LOCAL_CHECKPOINT_PATH
+    sha256: ''
+    license_reviewed: false
+  class_map: {}
+  threshold: 0.05
+  model_kwargs: {}
