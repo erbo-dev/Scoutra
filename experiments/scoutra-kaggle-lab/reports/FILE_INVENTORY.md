@@ -12,6 +12,8 @@ Original files: 202. Original ZIP: 252943 bytes; SHA256 `daae05300c49c87eb6b2de9
 
 ## Committed package files
 
+85 UTF-8 text files.
+
 ```text
 .gitignore
 README.md
@@ -61,10 +63,13 @@ reports/BENCHMARK_SCHEMA.md
 reports/DATASET_AND_ANNOTATIONS.md
 reports/DEPENDENCY_MATRIX.md
 reports/EXPERIMENT_PLAN.md
+reports/FILE_INVENTORY.md
 reports/KAGGLE_EXECUTION.md
 reports/LATER_NOTEBOOK_SPECIFICATIONS.md
 reports/LICENSE_AND_REPRODUCIBILITY.md
 reports/MODEL_INVENTORY.md
+reports/READINESS_AUDIT.md
+reports/READINESS_EVIDENCE.json
 reports/RISKS_AND_BLOCKERS.md
 reports/VALIDATION.md
 reports/previous-audit/EXECUTIVE_SUMMARY.md
@@ -95,7 +100,6 @@ scoutra_lab/fetch_sources.py
 scoutra_lab/pipelines.py
 scoutra_lab/visualize.py
 tests/test_contracts.py
-reports/FILE_INVENTORY.md
 ```
 
 ## Complete original workspace file tree

@@ -1,3 +1,5 @@
+> Delivery update: the historical output-directory blocker below is resolved by [draft PR #1](https://github.com/erbo-dev/Scoutra/pull/1). See [READINESS_AUDIT.md](READINESS_AUDIT.md) for current access and readiness. Historical preparation evidence remains below.
+
 # Validation of laboratory preparation
 
 Prepared17November2026. **No football model experiment was executed.**

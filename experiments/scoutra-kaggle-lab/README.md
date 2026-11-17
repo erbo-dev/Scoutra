@@ -33,3 +33,5 @@ Base serialization dependencies are required. No production checkout or external
 Only research source, five unexecuted notebooks, configuration/dependency templates, blank schemas, tests and documentation are versioned. The original 202-file workspace included generated empty Parquet/result containers; these are excluded, along with the old transfer archive and supplied video-filename list. Blank templates were moved to `schemas/` so no dataset directory is committed. Actual videos, annotations, weights and runtime artifacts must be attached separately in Kaggle.
 
 After downloading this repository, use **only** `experiments/scoutra-kaggle-lab/` as the laboratory folder when creating the Kaggle lab Dataset. Bootstrap locates `scoutra_lab/common.py`, so the outer folder name can differ from the original archive. No production application files are changed.
+
+Read the post-delivery [readiness audit](reports/READINESS_AUDIT.md) before running notebooks. It documents path overrides, freshly checked checkpoint endpoints, unverified Kaggle dependencies and incomplete advanced-method bridges.

@@ -1,3 +1,5 @@
+> Delivery update: the historical output-directory blocker below is resolved by [draft PR #1](https://github.com/erbo-dev/Scoutra/pull/1). See [READINESS_AUDIT.md](READINESS_AUDIT.md) for current access and readiness. Historical preparation evidence remains below.
+
 # Risks, blockers and exact execution status
 
 **All real experiments remain NOT EXECUTED.** No trained model, video inference, GPU benchmark, expensive experiment, training, production edit or integration was performed.
