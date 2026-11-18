@@ -1,4 +1,5 @@
 """CPU contract tests. All synthetic inputs stay in temporary directories."""
+import ast
 import contextlib
 import copy
 import csv
@@ -13,19 +14,20 @@ import unittest
 import zipfile
 from unittest.mock import patch
 from pathlib import Path
+from types import SimpleNamespace
 
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
 
-from advanced import compare_embeddings, homography, temporal_ocr, write_embeddings
+from advanced import ADVANCED, compare_embeddings, homography, temporal_ocr, write_embeddings
 from common import Blocked, NAMES, atomic_path, canonical_box, digest, export_zip, freeze_predictions, json_read, json_write, resolve_dataset
-from environment import device_plan, profile_support
+from environment import device_plan, isolated_python_environment, profile_support
 from evaluate import detection_metrics, identity_metrics, parse_reviewed, tracking_metrics
 from jobs import dataset_audit, probe_video
 from lab import Laboratory, launch, validate_detector_devices
 from notebook_config import CONFIG
 from schedule import execute
-from backends import detector_asset
+from backends import DETECTORS, TRACKERS, Detector, detector_asset, place_rfdetr
 
 
 class FixtureRunner:
@@ -325,11 +327,108 @@ class Tests(unittest.TestCase):
         devices = ["cuda:0", "cuda:1"]
         expected = {"cuda:0": "a", "cuda:1": "b"}
         rows = [dict(device=device, gpu_uuid=expected[device], pid=i+100, frames=8,
-                     cuda_frames=8, inference_batches=2) for i, device in enumerate(devices)]
+                     cuda_frames=8, inference_batches=2, cuda_batches=2, forward_device="cuda:0")
+                for i, device in enumerate(devices)]
         self.assertTrue(validate_detector_devices(rows, devices, expected))
-        for change in ({"cuda_frames": 0}, {"pid": 100}, {"gpu_uuid": "a"}, {"inference_batches": 0}):
+        for change in ({"cuda_frames": 0}, {"pid": 100}, {"gpu_uuid": "a"}, {"inference_batches": 0},
+                       {"cuda_batches": 0}, {"forward_device": "cpu"}):
             self.assertFalse(validate_detector_devices([rows[0], {**rows[1], **change}], devices, expected))
         self.assertFalse(validate_detector_devices(rows[:1], devices, expected))
+
+    def test_rfdetr_moves_all_parameters_buffers_and_postprocessor(self):
+        import torch
+
+        model = torch.nn.Sequential(torch.nn.Linear(2, 4), torch.nn.BatchNorm1d(4))
+        postprocess = torch.nn.BatchNorm1d(4)
+        context = SimpleNamespace(model=model, postprocess=postprocess, device=torch.device("meta"))
+        with contextlib.redirect_stdout(io.StringIO()):
+            evidence = place_rfdetr(SimpleNamespace(model=context), torch.device("meta"))
+        self.assertEqual(set(evidence["before"]["parameters"]), {"cpu"})
+        self.assertEqual(set(evidence["before"]["buffers"]), {"cpu"})
+        self.assertEqual(set(evidence["after"]["parameters"]), {"meta"})
+        self.assertEqual(set(evidence["after"]["buffers"]), {"meta"})
+        self.assertEqual(set(evidence["postprocess"]["buffers"]), {"meta"})
+        self.assertFalse(model.training)
+        with self.assertRaisesRegex(RuntimeError, "worker assigned"):
+            place_rfdetr(SimpleNamespace(model=context), torch.device("cpu"))
+        # A parameter alone on target is insufficient if a registered buffer fails to move.
+        mixed = torch.nn.Linear(2, 4, device="meta")
+        mixed.register_buffer("late", torch.ones(1))
+        mixed_context = SimpleNamespace(model=mixed, postprocess=torch.nn.Identity(), device="meta")
+        with patch.object(mixed, "to", return_value=mixed), contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(RuntimeError, "parameter/buffer placement failed"):
+                place_rfdetr(SimpleNamespace(model=mixed_context), torch.device("meta"))
+
+    def test_forward_evidence_rejects_unassigned_devices_and_shapes(self):
+        import torch
+
+        detector = object.__new__(Detector)
+        detector.name = "rfdetr_small"
+        detector.device = torch.device("cuda:0")
+        detector.forward_evidence = None
+        image = torch.zeros(2, 3, 8, 8)
+        logits = torch.zeros(2, 5, 90)
+        boxes = torch.zeros(2, 5, 4)
+        with self.assertRaisesRegex(RuntimeError, "expected forward tensors on cuda:0"):
+            detector._record_forward(image, logits, boxes)
+        detector.device = torch.device("cpu")
+        with self.assertRaisesRegex(RuntimeError, "unexpected forward shapes"):
+            detector._record_forward(image, logits[:1], boxes)
+        detector._record_forward(image, logits, boxes)
+        self.assertEqual(detector.forward_evidence["frames"], 2)
+        self.assertEqual(detector.forward_evidence["logits_device"], "cpu")
+
+    def test_rf_coco_uses_sparse_id_and_label_in_both_directions(self):
+        detector = object.__new__(Detector)
+        detector.name = "rfdetr_small"
+        native = [1, 2, 8, 9]
+        with self.assertRaisesRegex(ValueError, "Unexpected RF-DETR class mapping"):
+            detector._normalize([(native, .5, 1, "car")], (32, 32))
+        with self.assertRaisesRegex(ValueError, "Unexpected RF-DETR class mapping"):
+            detector._normalize([(native, .5, 32, "sports ball")], (32, 32))
+        rows = detector._normalize([(native, .5, 1, "person"), (native, .8, 37, "sports ball")], (32, 32))
+        self.assertEqual([(r["raw_id"], r["class"]) for r in rows], [(1, "person"), (37, "ball")])
+
+    def test_profile_drops_parent_startup_hook_path(self):
+        (self.root / "sitecustomize.py").write_text("import scoutra_nonexistent_fixture_wrapt\n")
+        with patch.dict(os.environ, {"PYTHONPATH": str(self.root)}):
+            original = subprocess.run([sys.executable, "-c", "pass"], capture_output=True, text=True)
+            isolated = subprocess.run([sys.executable, "-c", "pass"], capture_output=True, text=True,
+                                      env=isolated_python_environment())
+        self.assertIn("sitecustomize", original.stderr)
+        self.assertNotIn("sitecustomize", isolated.stderr)
+        self.assertEqual(isolated.returncode, 0)
+
+    def test_single_notebook_configuration_registry_and_launch(self):
+        path = HERE.parent / "Scoutra_All_Experiments_T4x2.ipynb"
+        notebook = json_read(path)
+        assignments = []
+        launches = []
+        for cell in notebook["cells"]:
+            if cell["cell_type"] == "code":
+                source = "".join(cell["source"])
+                nodes = list(ast.walk(ast.parse(source)))
+                for node in nodes:
+                    if isinstance(node, ast.Assign):
+                        assignments.extend(t.id for t in node.targets if isinstance(t, ast.Name))
+                launches.extend(n for n in nodes if isinstance(n, ast.Call) and
+                                isinstance(n.func, ast.Attribute) and n.func.attr == "run" and
+                                isinstance(n.func.value, ast.Name) and n.func.value.id == "subprocess")
+        self.assertEqual(assignments.count("CONFIG"), 1)
+        self.assertEqual(assignments.count("RUN_MODE"), 1)
+        self.assertEqual(assignments.count("SOURCES"), 1)
+        self.assertEqual(len(launches), 1)
+
+    def test_audit_lists_each_registered_method_exactly_once(self):
+        statuses = {"IMPLEMENTED_AND_TESTED", "IMPLEMENTED_BUT_UNTESTED", "REQUIRES_CHECKPOINT",
+                    "REQUIRES_INTEGRATION", "BLOCKED"}
+        expected = set(DETECTORS) | set(TRACKERS) | set().union(*(set(m) for m in ADVANCED.values()))
+        rows = [line.split("|") for line in (HERE / "TECHNOLOGY_AUDIT.md").read_text().splitlines()
+                if line.startswith("| `")]
+        names = [r[1].strip().strip("`") for r in rows]
+        self.assertEqual(set(names), expected)
+        self.assertEqual(len(names), len(expected))
+        self.assertTrue(all(r[2].strip().strip("`") in statuses for r in rows))
 
 
 if __name__ == "__main__":

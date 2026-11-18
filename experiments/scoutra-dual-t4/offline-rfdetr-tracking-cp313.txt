@@ -47,7 +47,7 @@ rfdetr==1.12.1
 rich==15.0.0
 safetensors==0.8.0
 scipy==1.18.1
-setuptools==84.2.1
+setuptools==81.0.0
 shellingham==1.5.4
 supervision==0.29.0
 sympy==1.14.0

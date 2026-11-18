@@ -1,4 +1,7 @@
 """Pinned model and tracker interfaces. COCO and football-trained labels stay explicit."""
+import json
+from collections import Counter
+from importlib.metadata import version
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -37,6 +40,7 @@ HF = {
 DETECTORS = {**dict.fromkeys(RF, "rf"), **dict.fromkeys(HF, "hf"), "scoutra_rfdetr": "rf"}
 TRACKERS = {"bytetrack": "tracker", "botsort_cmc": "tracker", "strongsort": "boxmot"}
 CLASS_MAP = {"person": "person", "sports ball": "ball"}
+RF_COCO_LABELS = {1: "person", 37: "sports ball"}
 HUMANS = {"person", "player", "goalkeeper", "referee"}
 
 
@@ -104,6 +108,40 @@ def osnet_asset(config):
                 source_commit=BOXMOT_COMMIT, checkpoint_kind="OSNet x0.25 MSMT17 (user supplied)")
 
 
+def module_devices(module):
+    return {
+        "parameters": dict(Counter(str(t.device) for t in module.parameters())),
+        "buffers": dict(Counter(str(t.device) for t in module.buffers())),
+    }
+
+
+def place_rfdetr(detector, device):
+    """Bind pinned RF-DETR's lazily loaded eager model to this worker's device."""
+    import torch
+
+    context = detector.model
+    device = torch.device(device)
+    if torch.device(context.device) != device:
+        raise RuntimeError(f"RF-DETR inference context requested {context.device}, worker assigned {device}")
+    before = module_devices(context.model)
+    before_postprocess = module_devices(context.postprocess)
+    print(f"RF-DETR device before placement: target={device} model={before} postprocess={before_postprocess}", flush=True)
+    # rfdetr 1.12.1 constructs the nn.Module on CPU and defers .to(device) to predict().
+    # Move its existing eager module here so pre-inference assertions check placed weights.
+    context.model = context.model.to(device=device).eval()
+    context.postprocess = context.postprocess.to(device=device).eval()
+    context.device = device
+    after = module_devices(context.model)
+    postprocess = module_devices(context.postprocess)
+    info = {"requested_device": str(device), "context_device": str(context.device),
+            "before": before, "before_postprocess": before_postprocess, "after": after, "postprocess": postprocess}
+    print(f"RF-DETR device after placement: {json.dumps(info, sort_keys=True)}", flush=True)
+    if (torch.device(context.device) != device or not after["parameters"]
+            or any(set(devices) - {str(device)} for states in (after, postprocess) for devices in states.values())):
+        raise RuntimeError(f"RF-DETR parameter/buffer placement failed: {info}")
+    return info
+
+
 class Detector:
     def __init__(self, name, asset, device, precision, score):
         import torch
@@ -111,6 +149,7 @@ class Detector:
         self.name, self.device = name, torch.device(device)
         self.precision, self.score = precision, score
         self.load_info = {}
+        self.forward_evidence = None
         self.is_rf = name not in HF
         if self.is_rf:
             import rfdetr
@@ -131,12 +170,13 @@ class Detector:
                 self.model = cls(pretrain_weights=asset["path"], device=device)
                 self.custom = None
                 from rfdetr.assets.coco_classes import COCO_CLASSES
-                if COCO_CLASSES.get(1) != "person" or COCO_CLASSES.get(37) != "sports ball":
+                if {i: COCO_CLASSES.get(i) for i in RF_COCO_LABELS} != RF_COCO_LABELS:
                     raise ValueError("RF-DETR sparse COCO map changed")
-                self.load_info["raw_id_map"] = {1: "person", 37: "ball"}
-            if next(self.model.model.model.parameters()).device != self.device:
-                raise RuntimeError("RF-DETR parameters are not on their assigned device")
+                self.load_info["raw_id_map"] = {i: CLASS_MAP[label] for i, label in RF_COCO_LABELS.items()}
+            self.load_info["rfdetr_version"] = version("rfdetr")
+            self.load_info["placement"] = place_rfdetr(self.model, self.device)
             self.load_info["input_resolution"] = self.model.model_config.resolution
+            self.model.model.model.register_forward_hook(self._rf_forward)
         else:
             from transformers import (DFineForObjectDetection, RTDetrForObjectDetection,
                                       RTDetrImageProcessor, RTDetrV2ForObjectDetection)
@@ -157,9 +197,26 @@ class Detector:
             self.load_info = {"unexpected_keys": info.get("unexpected_keys", []), "raw_id_map": {0: "person", 32: "ball"},
                               "input_resolution": self.processor.size}
 
+    def _rf_forward(self, _module, inputs, output):
+        self._record_forward(inputs[0], output["pred_logits"], output["pred_boxes"])
+
+    def _record_forward(self, inputs, logits, boxes):
+        devices = (inputs.device, logits.device, boxes.device)
+        if any(device != self.device for device in devices):
+            raise RuntimeError(f"{self.name}: expected forward tensors on {self.device}, got {devices}")
+        size = inputs.shape[0]
+        if size < 1 or logits.ndim != 3 or boxes.ndim != 3 or boxes.shape[-1] != 4 or logits.shape[:2] != boxes.shape[:2] or logits.shape[0] != size:
+            raise RuntimeError(f"{self.name}: unexpected forward shapes {inputs.shape}, {logits.shape}, {boxes.shape}")
+        if self.forward_evidence is not None:
+            raise RuntimeError(f"{self.name}: more than one forward observed for the current batch")
+        self.forward_evidence = {"frames": size, "input_device": str(devices[0]), "logits_device": str(devices[1]),
+                                 "boxes_device": str(devices[2]), "logits_shape": list(logits.shape),
+                                 "boxes_shape": list(boxes.shape)}
+
     def predict(self, rgb):
         import torch
 
+        self.forward_evidence = None
         with torch.inference_mode(), torch.autocast(self.device.type, dtype=torch.float16, enabled=self.precision == "fp16"):
             if self.is_rf:
                 outputs = self.model.predict(rgb, threshold=self.score, include_source_image=False)
@@ -174,6 +231,7 @@ class Detector:
                 if self.device.type == "cuda":
                     inputs = {key: tensor.pin_memory().to(self.device, non_blocking=True) for key, tensor in inputs.items()}
                 outputs = self.model(**inputs)
+                self._record_forward(inputs["pixel_values"], outputs.logits, outputs.pred_boxes)
                 sizes = torch.as_tensor([im.shape[:2] for im in rgb], device=self.device)
                 predictions = self.processor.post_process_object_detection(outputs, threshold=self.score, target_sizes=sizes)
                 raw = []
@@ -181,6 +239,8 @@ class Detector:
                     ids = out["labels"].detach().cpu().tolist()
                     raw.append(zip(out["boxes"].detach().cpu().numpy(), out["scores"].detach().cpu().numpy(),
                                    ids, (self.labels[i] for i in ids)))
+        if not self.forward_evidence or self.forward_evidence["frames"] != len(rgb):
+            raise RuntimeError(f"{self.name}: no matching forward batch was observed at the model boundary")
         if len(raw) != len(rgb):
             raise ValueError("Model did not return one prediction object per image")
         return [self._normalize(rows, (image.shape[1], image.shape[0])) for image, rows in zip(rgb, raw)]
@@ -189,11 +249,12 @@ class Detector:
         result = []
         for values, score, raw_id, label in rows:
             raw_id = int(raw_id)
-            canon = self.custom.get(raw_id) if self.name == "scoutra_rfdetr" else CLASS_MAP.get(str(label))
+            label = str(label)
+            canon = self.custom.get(raw_id) if self.name == "scoutra_rfdetr" else CLASS_MAP.get(label)
+            if self.name in RF and (raw_id in RF_COCO_LABELS or label in CLASS_MAP) and RF_COCO_LABELS.get(raw_id) != label:
+                raise ValueError(f"Unexpected RF-DETR class mapping {raw_id} -> {label}")
             if canon is None:
                 continue
-            if self.name in RF and {1: "person", 37: "ball"}.get(raw_id) != canon:
-                raise ValueError(f"Unexpected RF-DETR class mapping {raw_id} -> {label}")
             box = canonical_box(values, shape)
             if box:
                 result.append(dict(box, score=valid_score(score), raw_id=raw_id, raw_label=str(label), **{"class": canon}))

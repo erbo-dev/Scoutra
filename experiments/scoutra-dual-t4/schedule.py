@@ -185,10 +185,12 @@ def execute(tasks, devices, logdir, timeout, factory=JobRunner, telemetry=True, 
     results = [final[job["id"]] for job in tasks]
     for pid, info in workers.items():
         successful = [row for row in results if row.get("pid") == pid and row["state"] == "EXECUTED"]
+        cuda_frames = sum(r.get("cuda_frames", 0) for r in successful)
+        inference_s = sum(r.get("inference_s", 0) for r in successful)
         info.update(frames=sum(r.get("frames", 0) for r in successful), successful_jobs=len(successful),
-                    cuda_frames=sum(r.get("cuda_frames", 0) for r in successful),
+                    cuda_frames=cuda_frames, cuda_batches=sum(r.get("cuda_batches", 0) for r in successful),
                     inference_batches=sum(r.get("inference_batches", 0) for r in successful),
-                    inference_s=sum(r.get("inference_s", 0) for r in successful),
+                    inference_s=inference_s, cuda_inference_fps=cuda_frames / inference_s if cuda_frames and inference_s else None,
                     failures=sum(r.get("pid") == pid and r["state"] != "EXECUTED" for r in results))
     if samples:
         table(logdir / "device_samples.csv", samples, SAMPLE_FIELDS)
