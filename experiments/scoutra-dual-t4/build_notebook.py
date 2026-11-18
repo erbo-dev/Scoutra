@@ -9,15 +9,15 @@ NOTEBOOK = ROOT.parent / "Scoutra_All_Experiments_T4x2.ipynb"
 MODULES = ("common", "backends", "environment", "jobs", "schedule", "evaluate", "advanced", "legacy", "upstream_tracking", "lab")
 INTRO = """# Scoutra AI experiments on Kaggle 2×T4
 
-Attach **zhanto-highlights**, select **GPU T4 x2**, turn on **Internet**, and choose **Run All**. The default `RUN_MODE="BENCHMARK"` checks prerequisites, runs a small RF-DETR Small smoke test on each physical GPU, and then automatically starts the full 12-clip benchmark. ByteTrack and BoT-SORT share the same frozen predictions. `RUN_MODE="SMOKE"` stops after the short test.
+Import this file into a fresh Kaggle notebook, attach **zhanto-highlights**, select **GPU T4 x2**, turn on **Internet**, and choose **Run All**. The default `RUN_MODE="BENCHMARK"` checks prerequisites, runs a small RF-DETR Small smoke test on each physical GPU, and then automatically starts the full 12-clip benchmark. ByteTrack and BoT-SORT share the same frozen predictions. `RUN_MODE="SMOKE"` stops after the short test.
 
 - **PREFLIGHT** checks CUDA in the isolated profile, verifies checkpoints, prepares dependencies, and audits videos when at least one method is ready.
 - To run with Internet off, set `AUTO_ACQUIRE=False` and point `ASSET_CACHE` to an attached directory holding the verified `rf-detr-small.pth`. For a fresh session also point `WHEELHOUSE` to the dependency wheels. A valid profile and checkpoint already cached this session can be reused as is.
 - **ADVANCED** runs selected optional methods. **REPORT** re-exports a saved run.
 - If preflight or a requested method fails, the run saves its ZIP and reports **BLOCKED** or **FAILED**, and the execution cell raises an error. Open `RUN_RESULT.json`, `reports/failures.md` and `environment/network.json` in the ZIP.
-- `benchmarks/device_frames.csv` shows the physical GPU UUID, worker PID and detector frames per device. GPU inference validation requires actual CUDA batches on every assigned device. The CPU validation in Codex Cloud does not establish Kaggle T4 performance.
+- `benchmarks/device_frames.csv` shows the physical GPU UUID, worker PID, verified CUDA forward frames and inference throughput per device. Both worker logs show RF-DETR placement and forward tensor devices. The CPU validation in Codex Cloud does not establish Kaggle T4 performance.
 
-For Python 3.13 setup, offline wheels, checkpoint URLs and the SHA-256, see the [launch and repair guide](https://github.com/erbo-dev/Scoutra/blob/research/scoutra-kaggle-runtime-repair/experiments/scoutra-dual-t4/README.md).
+For Python 3.13 setup, offline wheels, checkpoint URLs and the SHA-256, see the [launch and repair guide](https://github.com/erbo-dev/Scoutra/blob/research/scoutra-rfdetr-device-fix/experiments/scoutra-dual-t4/README.md).
 """
 WORKER_CELLS = """## Embedded implementation
 

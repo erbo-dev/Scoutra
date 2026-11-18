@@ -19,10 +19,10 @@ from schedule import SAMPLE_FIELDS
 STATUS_FIELDS = ("group", "method", "stage", "state", "reason", "clip", "device", "pid", "traceback")
 RUNTIME_FIELDS = ("method", "phase", "clip", "device", "pid", "state", "frames", "crops_processed", "boxes", "clip_seconds",
                   "wall_s", "inference_s", "model_load_s", "cache_sha256", "prediction_sha256", "prediction_path",
-                  "start_monotonic_s", "end_monotonic_s", "gpu_uuid", "inference_batches", "cuda_frames",
+                  "start_monotonic_s", "end_monotonic_s", "gpu_uuid", "inference_batches", "cuda_frames", "cuda_batches", "forward_device",
                   "cuda_peak_allocated_bytes", "cuda_peak_reserved_bytes", "cuda_allocated_bytes", "cuda_reserved_bytes")
 DEVICE_FIELDS = ("group", "method", "phase", "device", "gpu_uuid", "pid", "frames", "cuda_frames",
-                 "inference_batches", "inference_s", "successful_jobs", "failures")
+                 "inference_batches", "cuda_batches", "inference_s", "cuda_inference_fps", "successful_jobs", "failures")
 EXIT_CODES = {"EXECUTED": 0, "READY": 0, "FAILED": 1, "BLOCKED": 2}
 METRIC_FIELDS = ("group", "method", "metric", "state", "value", "reason", "gt_sha256")
 MODES = {"PREFLIGHT", "SMOKE", "BENCHMARK", "ADVANCED", "REPORT"}
@@ -749,6 +749,7 @@ class Laboratory:
         return {"run_id": self.run.name, "mode": mode, "state": state, "exit_code": EXIT_CODES[state],
                 "detection_frames": sum(r["frames"] for r in detection_rows),
                 "cuda_detection_frames": sum(r.get("cuda_frames", 0) for r in detection_rows),
+                "cuda_inference_batches": sum(r.get("cuda_batches", 0) for r in detection_rows),
                 "successful_detection_jobs": len(detection_rows),
                 "failed_stages": sum(r["state"] == "FAILED" for r in self.status),
                 "blocked_stages": sum(r["state"] == "BLOCKED" for r in self.status)}
@@ -788,7 +789,8 @@ def validate_detector_devices(rows, devices, expected):
         assigned = [r for r in rows if r["device"] == device]
         if not identity or not assigned or any(
                 r.get("gpu_uuid") != identity or r.get("cuda_frames", 0) != r["frames"] or r["frames"] <= 0
-                or r.get("inference_batches", 0) <= 0 for r in assigned):
+                or r.get("inference_batches", 0) <= 0 or r.get("cuda_batches") != r["inference_batches"]
+                or r.get("forward_device") != "cuda:0" for r in assigned):
             return False
         pids.add(assigned[0]["pid"])
         if any(r["pid"] != assigned[0]["pid"] for r in assigned):

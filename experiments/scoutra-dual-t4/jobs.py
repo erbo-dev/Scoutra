@@ -177,7 +177,8 @@ class JobRunner:
         pred = output / "predictions" / f"{video['clip']}.jsonl"
         overlay_path = output / "annotated_videos" / f"{video['clip']}.mp4"
         expected = min(task["limit"] or video["frames"], video["frames"])
-        count = boxes = batches = 0
+        count = boxes = batches = cuda_frames = cuda_batches = 0
+        first_forward = None
         inference = 0.0
         with capture(video["path"]) as source, atomic_path(pred) as temporary, temporary.open("w") as rows, \
                 overlay(overlay_path, video, task["overlays"]) as annotated:
@@ -188,8 +189,15 @@ class JobRunner:
                 start = time.perf_counter()
                 results = self.detector.predict(rgb)
                 self.sync()
-                batches += 1
                 inference += time.perf_counter() - start
+                evidence = self.detector.forward_evidence
+                if first_forward is None:
+                    first_forward = evidence
+                    print(f"First verified forward {video['clip']}: {evidence}", flush=True)
+                batches += 1
+                if evidence["input_device"].startswith("cuda:"):
+                    cuda_frames += evidence["frames"]
+                    cuda_batches += 1
                 for frame, detections in zip(batch, results, strict=True):
                     count += 1
                     for i, d in enumerate(detections):
@@ -206,10 +214,12 @@ class JobRunner:
             "score_floor": task["score"], "asset": task["asset"], "model_contract": self.detector.load_info,
             "batch_size": task["batch"], "precision": task["precision"],
             "device": task.get("assigned_device", self.device), "worker_cuda_device": self.device,
-            "gpu_uuid": self.gpu_uuid, "inference_batches": batches, "cuda_frames": count if self.torch else 0,
+            "gpu_uuid": self.gpu_uuid, "inference_batches": batches, "cuda_frames": cuda_frames,
+            "cuda_batches": cuda_batches, "first_forward": first_forward,
         })
         return {"frames": count, "boxes": boxes, "inference_s": inference, "inference_batches": batches,
-                "cuda_frames": count if self.torch else 0,
+                "cuda_frames": cuda_frames, "cuda_batches": cuda_batches,
+                "forward_device": first_forward["input_device"],
                 "clip_seconds": count / video["nominal_fps"], "prediction_path": str(pred),
                 "prediction_sha256": fingerprint}
 

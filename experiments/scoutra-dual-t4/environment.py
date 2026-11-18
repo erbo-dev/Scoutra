@@ -68,9 +68,17 @@ def cuda_uuid(torch, index):
 def inventory(path, python=sys.executable, env=None):
     """Run in a disposable subprocess so the notebook process has no CUDA context."""
     probe = """
-import json, sys, traceback
+import importlib.util, json, sys, traceback
 from environment import cuda_uuid
 result = {'python':sys.version, 'cuda_available':False, 'gpu_count':0, 'gpus':[]}
+try:
+ result['python_startup'] = {
+  'sitecustomize': getattr(importlib.util.find_spec('sitecustomize'), 'origin', None),
+  'sitecustomize_loaded': 'sitecustomize' in sys.modules,
+  'wrapt_available': importlib.util.find_spec('wrapt') is not None,
+ }
+except (ImportError, ValueError) as error:
+ result['python_startup'] = {'diagnostic_error': str(error)}
 try:
  import torch, torchvision
  result.update(torch=torch.__version__, torchvision=torchvision.__version__, cuda_version=torch.version.cuda,
@@ -156,8 +164,13 @@ def profile_support(profile, python_version):
         raise Blocked(f"Profile {profile} requires Python 3.11–{wanted}, found Python {actual}.{explanation}")
 
 
+def isolated_python_environment():
+    # The venv should not discover Kaggle startup hooks via the parent Python search path.
+    return {k: v for k, v in os.environ.items() if k not in {"PYTHONPATH", "PYTHONHOME", "PYTHONUSERBASE"}}
+
+
 def pip_environment():
-    return {**{k: v for k, v in os.environ.items() if not k.startswith("PIP_")},
+    return {**{k: v for k, v in isolated_python_environment().items() if not k.startswith("PIP_")},
             "PIP_CONFIG_FILE": os.devnull, "PIP_DISABLE_PIP_VERSION_CHECK": "1",
             "PIP_NO_INPUT": "1", "PIP_TIMEOUT": "15", "PIP_RETRIES": "2"}
 
@@ -204,7 +217,7 @@ def prepare_profile(profile, workspace, run, online, wheelhouse=None, probe=None
     yolo_dir = workspace / "ultralytics"
     if profile == "tracker":
         yolo_dir.mkdir(parents=True, exist_ok=True)
-    env = {**os.environ, **NO_NET_ENV, "YOLO_CONFIG_DIR": str(yolo_dir)}
+    env = {**isolated_python_environment(), **NO_NET_ENV, "YOLO_CONFIG_DIR": str(yolo_dir)}
     if command([*pip, "check"], log, environment=environment):
         raise RuntimeError(f"pip check failed for {profile}; see {log.name}")
     result = command([str(python), "-c", IMPORT_SMOKES[profile]], log, timeout=120, environment=env)

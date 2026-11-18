@@ -50,10 +50,27 @@ def main():
     expected_state = "BLOCKED" if args.include_blocked_model else "EXECUTED"
     assert pointer["state"] == expected_state
     assert pointer["cuda_detection_frames"] == 0
+    assert pointer["cuda_inference_batches"] == 0
     assert pointer["successful_detection_jobs"] == 14
     with (run / "dataset" / "manifest.csv").open() as handle:
         frame_counts = {row["clip"]: int(row["frames"]) for row in csv.DictReader(handle)}
     assert pointer["detection_frames"] == sum(frame_counts.values()) + 2
+    for phase in ("smoke", "benchmark"):
+        predictions = list((run / "detections" / "rfdetr_small" / phase / "predictions").glob("*.jsonl"))
+        assert len(predictions) == (2 if phase == "smoke" else 12)
+        detections = 0
+        for path in predictions:
+            metadata = json_read(path.with_suffix(".json"))
+            observed = metadata["first_forward"]
+            assert {observed[k] for k in ("input_device", "logits_device", "boxes_device")} == {"cpu"}
+            assert set(metadata["model_contract"]["placement"]["after"]["parameters"]) == {"cpu"}
+            actual_hash = digest(path)
+            assert metadata["prediction_sha256"] == actual_hash
+            for line in path.read_text().splitlines():
+                for entry in json.loads(line)["detections"]:
+                    assert (entry["raw_id"], entry["class"]) in {(1, "person"), (37, "ball")}
+                    detections += 1
+        assert detections > 0
     for tracker in ("bytetrack", "botsort_cmc"):
         tracks = list((run / "tracking" / tracker / "benchmark" / "tracks").glob("*.jsonl"))
         assert len(tracks) == 12
