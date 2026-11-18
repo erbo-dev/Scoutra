@@ -28,7 +28,7 @@ def deep_profile(configuration, device, cache, video, output, thresholds, overla
                         provenance=configuration["provenance"]), legacy_environment(device)
 
 
-def run(spec):
+def run(spec, *, device="cuda:0"):
     import math
     import sys
 
@@ -36,22 +36,22 @@ def run(spec):
     import numpy as np
     import torch
 
-    if not torch.cuda.is_available():
+    gpu = torch.device(device).type == "cuda"
+    if gpu and not torch.cuda.is_available():
         raise RuntimeError("Deep-EIoU appearance encoder requires CUDA in its isolated profile")
     if np.lib.NumpyVersion(np.__version__) >= "1.24.0":
         raise Blocked(f"The original tracker uses np.float; install NumPy <1.24 in the isolated profile (found {np.__version__}).")
     cv2.setNumThreads(1)
-    torch.cuda.set_device(0)
-    torch.cuda.reset_peak_memory_stats(0)
+    if gpu:
+        torch.cuda.set_device(device)
+        torch.cuda.reset_peak_memory_stats(device)
     started = time.perf_counter()
     sys.path.insert(0, spec["source"])
     from tracker.Deep_EIoU import Deep_EIoU
-    from torchreid.utils import FeatureExtractor
+    from legacy import sports_encoder
 
     video = spec["video"]
-    extractor = FeatureExtractor(model_name="osnet_x1_0", model_path=spec["checkpoint"], device="cuda:0")
-    from legacy import verify_sports_encoder
-    verify_sports_encoder(extractor, spec["checkpoint"])
+    extractor = sports_encoder(spec["checkpoint"], device)
     tracker = Deep_EIoU(SimpleNamespace(**spec["thresholds"]), frame_rate=max(1, round(video["nominal_fps"])))
     out = Path(spec["output"])
     tracks = out / "tracks" / f"{video['clip']}.jsonl"
@@ -66,9 +66,11 @@ def run(spec):
                 raise ValueError("Frozen detection cache outlasts the clip")
             people = [row for row in frame["detections"] if row["class"] in HUMANS]
             detections = np.asarray([[p[k] for k in (*BOX, "score")] for p in people], dtype=np.float32).reshape(-1, 5)
-            crops = [image[max(0, math.floor(p["y1"])):math.ceil(p["y2"]),
+            rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            crops = [rgb[max(0, math.floor(p["y1"])):math.ceil(p["y2"]),
                            max(0, math.floor(p["x1"])):math.ceil(p["x2"])] for p in people]
-            torch.cuda.synchronize()
+            if gpu:
+                torch.cuda.synchronize(device)
             ts = time.perf_counter()
             if crops:
                 embs = np.concatenate([extractor(crops[i:i + 32]).detach().cpu().numpy() for i in range(0, len(crops), 32)])
@@ -77,7 +79,8 @@ def run(spec):
             if embs.shape != (len(detections), 512) or not np.isfinite(embs).all():
                 raise ValueError("Deep-EIoU expects one finite sports OSNet vector per frozen detection")
             predicted = tracker.update(detections, embs.copy())
-            torch.cuda.synchronize()
+            if gpu:
+                torch.cuda.synchronize(device)
             durations += time.perf_counter() - ts
             actual = []
             for current in predicted:
@@ -104,7 +107,7 @@ def run(spec):
         "condition": "Original Deep-EIoU association with frozen detector and GTA-packaged sports OSNet x1.0",
         "source_commit": COMMIT, "checkpoint_sha256": GTA_WEIGHT_HASH, "provenance": spec["provenance"],
         "parameters": spec["thresholds"], "inference_s": durations, "wall_s": time.perf_counter() - started,
-        "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(0), "device": spec["device"], "boxes": boxes,
+        "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(device) if gpu else 0, "device": spec["device"] if gpu else str(device), "boxes": boxes,
     })
 
 

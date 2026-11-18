@@ -142,19 +142,28 @@ def gta_profile(configuration, device, tracks, video, output):
     }, legacy_environment(device)
 
 
-def verify_sports_encoder(encoder, path):
+def sports_encoder(path, device):
+    import numpy as np
     import torch
+    from torchreid.utils import FeatureExtractor
 
-    checkpoint = torch.load(path, map_location="cpu", weights_only=False)
+    verified(path, GTA_WEIGHT_HASH)
+    # The published checkpoint contains NumPy scalars alongside its tensors.
+    # Allow only those types while keeping PyTorch's weights-only loader.
+    checkpoint_types = [np.dtype, np.core.multiarray.scalar, type(np.dtype(np.float64)), type(np.dtype(np.float32))]
+    with torch.serialization.safe_globals(checkpoint_types):
+        encoder = FeatureExtractor(model_name="osnet_x1_0", model_path=str(path), device=device)
+        checkpoint = torch.load(path, map_location="cpu", weights_only=True)
     state = checkpoint.get("state_dict", checkpoint)
     state = {k[7:] if k.startswith("module.") else k: v for k, v in state.items()}
     missing = [k for k, v in encoder.model.state_dict().items()
                if not k.startswith("classifier.") and (k not in state or not torch.equal(v.detach().cpu(), state[k]))]
     if missing:
         raise ValueError(f"Sports OSNet weights were not loaded on all inference layers: {missing[:10]}")
+    return encoder
 
 
-def gta_link(spec):
+def gta_link(spec, *, device="cuda:0"):
     import collections
     import numpy as np
     import torch
@@ -165,18 +174,17 @@ def gta_link(spec):
     from evaluate import bbox, checked_tracks
     from jobs import capture
 
-    if not torch.cuda.is_available():
+    gpu = torch.device(device).type == "cuda"
+    if gpu and not torch.cuda.is_available():
         raise RuntimeError("GTA-Link feature extraction requires a functional CUDA device in the isolated environment")
-    torch.cuda.set_device(0)
-    torch.cuda.reset_peak_memory_stats(0)
+    if gpu:
+        torch.cuda.set_device(device)
+        torch.cuda.reset_peak_memory_stats(device)
     time_start = time.perf_counter()
     sys.path.insert(0, spec["repo"])
     from Tracklet import Tracklet
     from refine_tracklets import get_distance_matrix, get_spatial_constraints, merge_tracklets, split_tracklets
-    from torchreid.utils import FeatureExtractor
-
-    encoder = FeatureExtractor(model_name="osnet_x1_0", model_path=spec["checkpoint"], device="cuda:0")
-    verify_sports_encoder(encoder, spec["checkpoint"])
+    encoder = sports_encoder(spec["checkpoint"], device)
     transform = T.Compose([T.Resize([256, 128]), T.ToTensor(),
                            T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
     video = spec["video"]
@@ -193,11 +201,13 @@ def gta_link(spec):
                 continue
             pil = Image.fromarray(np.ascontiguousarray(frame[:, :, ::-1]))
             crops = [transform(pil.crop(tuple(x[coord] for coord in ("x1", "y1", "x2", "y2")))) for x in row["tracks"]]
-            torch.cuda.synchronize()
+            if gpu:
+                torch.cuda.synchronize(device)
             started = time.perf_counter()
             vectors = [encoder(torch.stack(crops[i:i + 32])).detach().cpu().numpy()
                        for i in range(0, len(crops), 32)]
-            torch.cuda.synchronize()
+            if gpu:
+                torch.cuda.synchronize(device)
             features_s += time.perf_counter() - started
             for item, vector in zip(row["tracks"], np.concatenate(vectors)):
                 tid, frame_id = item["track_id"], row["frame"]
@@ -237,8 +247,8 @@ def gta_link(spec):
                                 "input_tracks": len(inputs), "split_tracks": split_count, "linked_tracks": len(merged),
                                 "retained_observations": outputs, "dropped_observations": sum(map(len, original.values())) - outputs,
                                 "feature_seconds": features_s, "wall_s": time.perf_counter() - time_start,
-                                "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(0),
-                                "peak_cuda_reserved_bytes": torch.cuda.max_memory_reserved(0), "device": spec["device"]})
+                                "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(device) if gpu else 0,
+                                "peak_cuda_reserved_bytes": torch.cuda.max_memory_reserved(device) if gpu else 0, "device": spec["device"] if gpu else str(device)})
 
 
 if __name__ == "__main__":
