@@ -16,7 +16,7 @@ from jobs import JobRunner
 SAMPLE_FIELDS = ("utc_epoch_s", "physical_index", "gpu_uuid", "utilization_pct", "memory_used_mib", "memory_total_mib")
 
 
-def worker(device, first, work, events, log_path, factory):
+def worker(device, first, work, events, log_path, factory, expected_uuid):
     pid = os.getpid()
     base = {"device": device, "pid": pid}
     last = time.monotonic()
@@ -27,9 +27,14 @@ def worker(device, first, work, events, log_path, factory):
                 logical = int(device.split(":")[1])
                 visible = os.environ.get("CUDA_VISIBLE_DEVICES")
                 token = visible.split(",")[logical].strip() if visible else str(logical)
-                os.environ["CUDA_VISIBLE_DEVICES"] = token
+                os.environ["CUDA_VISIBLE_DEVICES"] = f"GPU-{expected_uuid}" if expected_uuid else token
                 runtime_device = "cuda:0"
             runner = factory(runtime_device)
+            physical_uuid = getattr(runner, "gpu_uuid", None)
+            if expected_uuid and physical_uuid != expected_uuid:
+                raise RuntimeError(f"{device} worker resolved GPU {physical_uuid}, expected {expected_uuid}")
+            if physical_uuid:
+                base["gpu_uuid"] = physical_uuid
         except Exception:
             events.put(("startup_failure", dict(base, traceback=traceback.format_exc())))
             return
@@ -73,7 +78,7 @@ def sample_devices(stop, samples, diagnostics):
         stop.wait(1)
 
 
-def execute(tasks, devices, logdir, timeout, factory=JobRunner, telemetry=True):
+def execute(tasks, devices, logdir, timeout, factory=JobRunner, telemetry=True, device_uuids=None):
     if not tasks or not devices:
         raise ValueError("Scheduler requires nonempty jobs and device plan")
     if len({job["id"] for job in tasks}) != len(tasks) or len(set(devices)) != len(devices):
@@ -115,7 +120,7 @@ def execute(tasks, devices, logdir, timeout, factory=JobRunner, telemetry=True):
         for device, first in zip(devices, sorted_jobs):
             tag = device.replace(":", "_")
             log = logdir / f"{tag}.log"
-            process = context.Process(target=worker, args=(device, first, work, events, str(log), factory))
+            process = context.Process(target=worker, args=(device, first, work, events, str(log), factory, (device_uuids or {}).get(device)))
             process.start()
             processes[process.pid] = process
             workers[process.pid] = {"device": device, "pid": process.pid, "seed_job": first["id"], "log": str(log),
@@ -181,6 +186,8 @@ def execute(tasks, devices, logdir, timeout, factory=JobRunner, telemetry=True):
     for pid, info in workers.items():
         successful = [row for row in results if row.get("pid") == pid and row["state"] == "EXECUTED"]
         info.update(frames=sum(r.get("frames", 0) for r in successful), successful_jobs=len(successful),
+                    cuda_frames=sum(r.get("cuda_frames", 0) for r in successful),
+                    inference_batches=sum(r.get("inference_batches", 0) for r in successful),
                     inference_s=sum(r.get("inference_s", 0) for r in successful),
                     failures=sum(r.get("pid") == pid and r["state"] != "EXECUTED" for r in results))
     if samples:
@@ -195,7 +202,7 @@ def main():
     parser.add_argument("result", type=Path)
     args = parser.parse_args()
     spec = json_read(args.spec)
-    result = execute(spec["tasks"], spec["devices"], spec["logdir"], spec["timeout"], telemetry=spec["telemetry"])
+    result = execute(spec["tasks"], spec["devices"], spec["logdir"], spec["timeout"], telemetry=spec["telemetry"], device_uuids=spec.get("device_uuids"))
     json_write(args.result, result)
 
 

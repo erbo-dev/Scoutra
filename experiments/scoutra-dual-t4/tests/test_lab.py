@@ -6,10 +6,12 @@ import io
 import os
 import shutil
 import sys
+import subprocess
 import tempfile
 import time
 import unittest
 import zipfile
+from unittest.mock import patch
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[1]
@@ -17,12 +19,13 @@ sys.path.insert(0, str(HERE))
 
 from advanced import compare_embeddings, homography, temporal_ocr, write_embeddings
 from common import Blocked, NAMES, atomic_path, canonical_box, digest, export_zip, freeze_predictions, json_read, json_write, resolve_dataset
-from environment import device_plan, inventory
+from environment import device_plan, profile_support
 from evaluate import detection_metrics, identity_metrics, parse_reviewed, tracking_metrics
 from jobs import dataset_audit, probe_video
-from lab import launch
+from lab import Laboratory, launch, validate_detector_devices
 from notebook_config import CONFIG
 from schedule import execute
+from backends import detector_asset
 
 
 class FixtureRunner:
@@ -259,6 +262,74 @@ class Tests(unittest.TestCase):
             self.assertIn("BLOCKED", statuses)
             self.assertIn("Explicit DATASET_ROOT", archive.read("reports/failures.md").decode())
             self.assertFalse(any("/predictions/" in entry for entry in archive.namelist()))
+
+    def test_python_313_profiles_keep_boxmot_version_boundary(self):
+        for name in ("rf", "tracker", "hf", "eval"):
+            profile_support(name, (3, 13, 16))
+        with self.assertRaisesRegex(Blocked, "BoxMOT 16.0.10 declares Python <3.13"):
+            profile_support("boxmot", (3, 13, 16))
+        with self.assertRaises(Blocked):
+            profile_support("rf", (3, 14, 0))
+
+    def test_verified_offline_checkpoint_skips_http_and_keeps_file(self):
+        cache = self.root / "read-only-assets"
+        cache.mkdir()
+        weights = cache / "rf-detr-small.pth"
+        weights.write_bytes(b"offline checkpoint fixture")
+        conf = {**CONFIG, "auto_acquire": False, "asset_cache": str(cache)}
+        with patch.dict("backends.RF", {"rfdetr_small": ("small", digest(weights))}):
+            def unexpected_probe(url):
+                raise AssertionError(url)
+            result = detector_asset("rfdetr_small", conf, self.root / "session", unexpected_probe)
+            self.assertEqual(result["path"], str(weights))
+        with self.assertRaisesRegex(ValueError, "SHA-256 mismatch"):
+            detector_asset("rfdetr_small", conf, self.root / "session")
+        self.assertEqual(weights.read_bytes(), b"offline checkpoint fixture")
+
+    def test_offline_preflight_records_missing_weights_and_dependencies(self):
+        data = self.root / "videos"
+        self.paths(data)
+        config = {**CONFIG, "mode": "BENCHMARK", "dataset_root": str(data),
+                  "auto_acquire": False, "save_videos": False}
+        host = {"gpu_count": 2, "gpus": [{"index": i, "functional": True, "name": "Tesla T4",
+                "uuid": str(i)} for i in range(2)]}
+        with patch("lab.inventory", return_value=host), patch.object(
+                Laboratory, "cuda_profile", side_effect=Blocked("Profile rf is missing. Set WHEELHOUSE.")):
+            with contextlib.redirect_stdout(io.StringIO()):
+                archive = launch(self.root / "results", config)
+        with zipfile.ZipFile(archive) as z:
+            statuses = list(csv.DictReader(io.StringIO(z.read("benchmarks/experiment_status.csv").decode())))
+            reported = json_read(self.root / "results" / "latest_run.json")
+        self.assertEqual(reported["state"], "BLOCKED")
+        self.assertEqual(reported["exit_code"], 2)
+        self.assertEqual(reported["cuda_detection_frames"], 0)
+        self.assertIn(("rfdetr_small", "dependency_preflight", "BLOCKED"),
+                      {(r["method"], r["stage"], r["state"]) for r in statuses})
+        self.assertIn(("rfdetr_small", "asset_preflight", "BLOCKED"),
+                      {(r["method"], r["stage"], r["state"]) for r in statuses})
+
+    def test_real_cli_returns_nonzero_and_retains_zip_on_blocker(self):
+        config = {**CONFIG, "dataset_root": str(self.root / "missing"), "mode": "BENCHMARK"}
+        spec = self.root / "config.json"
+        results = self.root / "run"
+        json_write(spec, config)
+        c = subprocess.run([sys.executable, str(HERE / "lab.py"), str(results), str(spec), "test"],
+                           capture_output=True, text=True, timeout=45)
+        self.assertEqual(c.returncode, 2, c.stderr)
+        self.assertIn("RUN_RESULT=BLOCKED", c.stdout)
+        with zipfile.ZipFile(results / "export" / "scoutra_experiments_results.zip") as z:
+            self.assertEqual(z.testzip(), None)
+            self.assertIn("RUN_RESULT.json", z.namelist())
+
+    def test_cuda_evidence_rejects_cpu_duplicate_or_misassigned_workers(self):
+        devices = ["cuda:0", "cuda:1"]
+        expected = {"cuda:0": "a", "cuda:1": "b"}
+        rows = [dict(device=device, gpu_uuid=expected[device], pid=i+100, frames=8,
+                     cuda_frames=8, inference_batches=2) for i, device in enumerate(devices)]
+        self.assertTrue(validate_detector_devices(rows, devices, expected))
+        for change in ({"cuda_frames": 0}, {"pid": 100}, {"gpu_uuid": "a"}, {"inference_batches": 0}):
+            self.assertFalse(validate_detector_devices([rows[0], {**rows[1], **change}], devices, expected))
+        self.assertFalse(validate_detector_devices(rows[:1], devices, expected))
 
 
 if __name__ == "__main__":

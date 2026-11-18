@@ -40,22 +40,37 @@ CLASS_MAP = {"person": "person", "sports ball": "ball"}
 HUMANS = {"person", "player", "goalkeeper", "referee"}
 
 
-def detector_asset(name, config, cache):
+def detector_asset(name, config, cache, probe=None):
+    offline = Path(config["asset_cache"]) if config.get("asset_cache") else None
+    online = config["auto_acquire"]
     if name in RF:
         size, checksum = RF[name]
-        url = f"https://storage.googleapis.com/rfdetr/{size}_coco/checkpoint_best_regular.pth"
-        path = fetch(url, cache / f"rf-detr-{size}.pth", checksum, config["auto_acquire"])
-        return dict(path=str(path), weights_sha256=checksum, weights_source=url, source_commit=RF_COMMIT,
+        release = f"{size}_coco/checkpoint_best_regular.pth"
+        url = f"https://repo.roboflow.com/rfdetr/{release}"
+        mirror = f"https://storage.googleapis.com/rfdetr/{release}"
+        filename = f"rf-detr-{size}.pth"
+        local = offline / filename if offline else None
+        if local and local.is_file():
+            path = verified(local, checksum)
+        else:
+            path = fetch(url, cache / filename, checksum, online, mirrors=(mirror,), probe=probe)
+        return dict(path=str(path), weights_sha256=checksum, weights_source=url, weights_mirrors=[mirror], source_commit=RF_COMMIT,
                     checkpoint_kind="COCO", checkpoint_license="Apache-2.0",
                     transformers_commit=RF_TRANSFORMERS_COMMIT)
     if name in HF:
         repo, revision, model_type, *hashes = HF[name]
         url = f"https://huggingface.co/{repo}/resolve/{revision}"
-        files = {}
-        for filename, checksum in zip(("config.json", "preprocessor_config.json", "model.safetensors"), hashes):
-            path = fetch(f"{url}/{filename}", cache / name / filename, checksum, config["auto_acquire"])
-            files[filename] = checksum
-        return dict(path=str(path.parent), files=files, weights_source=repo, weights_revision=revision,
+        files = dict(zip(("config.json", "preprocessor_config.json", "model.safetensors"), hashes))
+        local = offline / name if offline else None
+        if local and all((local / filename).is_file() for filename in files):
+            for filename, checksum in files.items():
+                verified(local / filename, checksum)
+            directory = local.resolve()
+        else:
+            directory = cache / name
+            for filename, checksum in files.items():
+                fetch(f"{url}/{filename}", directory / filename, checksum, online, probe=probe)
+        return dict(path=str(directory.resolve()), files=files, weights_source=repo, weights_revision=revision,
                     weights_sha256=hashes[-1], source_commit=HF_COMMIT, model_type=model_type,
                     checkpoint_kind="COCO", checkpoint_license="Apache-2.0")
     spec = config["scoutra_checkpoint"]

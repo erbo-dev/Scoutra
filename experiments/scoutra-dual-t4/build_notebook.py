@@ -9,17 +9,15 @@ NOTEBOOK = ROOT.parent / "Scoutra_All_Experiments_T4x2.ipynb"
 MODULES = ("common", "backends", "environment", "jobs", "schedule", "evaluate", "advanced", "legacy", "upstream_tracking", "lab")
 INTRO = """# Scoutra AI experiments on Kaggle 2×T4
 
-Attach the **zhanto-highlights** Kaggle Dataset and pick **GPU T4 x2**. To acquire the first detector and packages, enable **Kaggle Internet** and set `AUTO_ACQUIRE=True`. Run All with `RUN_MODE="SMOKE"`. The default enabled methods are RF-DETR Small, ByteTrack and BoT-SORT with camera compensation. Smoke runs the detector on up to eight real frames per worker and reports the actual number decoded.
+Attach **zhanto-highlights**, select **GPU T4 x2**, turn on **Internet**, and choose **Run All**. The default `RUN_MODE="BENCHMARK"` checks prerequisites, runs a small RF-DETR Small smoke test on each physical GPU, and then automatically starts the full 12-clip benchmark. ByteTrack and BoT-SORT share the same frozen predictions. `RUN_MODE="SMOKE"` stops after the short test.
 
-After the smoke, set `RUN_MODE="BENCHMARK"`. For the full COCO comparison set `DETECTOR_METHODS = ["rfdetr_small", "rfdetr_medium", "dfine_small", "rtdetr_r18vd", "rtdetrv2_r18vd"]`. Each enabled detector runs a per-device smoke before full clips. ByteTrack and BoT-SORT use one shared, SHA-256-verified detector cache. `SCALING_MODELS` selects the detectors for an equivalent one-GPU run. Remove a model from the list to save Kaggle time.
+- **PREFLIGHT** checks CUDA in the isolated profile, verifies checkpoints, prepares dependencies, and audits videos when at least one method is ready.
+- To run with Internet off, set `AUTO_ACQUIRE=False` and point `ASSET_CACHE` to an attached directory holding the verified `rf-detr-small.pth`. For a fresh session also point `WHEELHOUSE` to the dependency wheels. A valid profile and checkpoint already cached this session can be reused as is.
+- **ADVANCED** runs selected optional methods. **REPORT** re-exports a saved run.
+- If preflight or a requested method fails, the run saves its ZIP and reports **BLOCKED** or **FAILED**, and the execution cell raises an error. Open `RUN_RESULT.json`, `reports/failures.md` and `environment/network.json` in the ZIP.
+- `benchmarks/device_frames.csv` shows the physical GPU UUID, worker PID and detector frames per device. GPU inference validation requires actual CUDA batches on every assigned device. The CPU validation in Codex Cloud does not establish Kaggle T4 performance.
 
-- **PREFLIGHT** decodes and hashes all twelve exact clips and checks CUDA and local assets.
-- **SMOKE** runs selected checkpoints on short real frame sequences.
-- **BENCHMARK** runs consecutive frames of the selected clips, with predictions, overlays and measured wall times.
-- **ADVANCED** runs only named methods. Use `CACHE_RUN` for a previous run ID or extracted result directory.
-- **REPORT** regenerates the download ZIP from a saved run without calling any model.
-
-First-run installation and weights require opt-in. For a repeat in the same session, the verified cache and isolated environments can be reused with `AUTO_ACQUIRE=False`. Set `ALLOW_SINGLE_GPU=True` explicitly for one GPU. Prediction rows and track IDs are clip-local. Generic COCO detectors expose **person** and **ball**, without football role predictions. CUDA status, method-level results and any accuracy labeled `NOT_EVALUATED` are in the report. Codex Cloud did not run Kaggle T4 inference.
+For Python 3.13 setup, offline wheels, checkpoint URLs and the SHA-256, see the [launch and repair guide](https://github.com/erbo-dev/Scoutra/blob/research/scoutra-kaggle-runtime-repair/experiments/scoutra-dual-t4/README.md).
 """
 WORKER_CELLS = """## Embedded implementation
 
@@ -48,22 +46,27 @@ for filename, code in SOURCES.items():
 results = WORK / "scoutra_experiments"
 launch_config = runtime / "launch.json"
 launch_config.write_text(json.dumps(CONFIG, indent=2) + "\n", encoding="utf-8")
-subprocess.run([sys.executable, "-u", str(runtime / "lab.py"), str(results), str(launch_config), SOURCE_ID],
-               cwd=runtime, check=True)
-"""
-REPORT = """# Open the Kaggle output files for this run.
 from IPython.display import FileLink, Markdown, display
 
-output = Path("/kaggle/working/scoutra_experiments")
-link = output / "export" / "scoutra_experiments_results.zip"
-if link.is_file():
+latest = results / "latest_run.json"
+previous = latest.read_bytes() if latest.is_file() else None
+completed = subprocess.run(
+    [sys.executable, "-u", str(runtime / "lab.py"), str(results), str(launch_config), SOURCE_ID],
+    cwd=runtime,
+)
+if latest.is_file() and latest.read_bytes() != previous:
+    result = json.loads(latest.read_text())
+    link = Path(result["zip"])
     display(FileLink(str(link.relative_to(Path.cwd())) if link.is_relative_to(Path.cwd()) else str(link)))
-latest = output / "latest_run.json"
-if latest.is_file() and RUN_MODE != "REPORT":
-    selected_run = Path(json.loads(latest.read_text())["path"])
-    display(Markdown((selected_run / "reports" / "summary.md").read_text()))
-"""
+    display(Markdown((Path(result["path"]) / "reports" / "summary.md").read_text()))
+elif RUN_MODE == "REPORT" and completed.returncode == 0:
+    link = results / "export" / "scoutra_experiments_results.zip"
+    display(FileLink(str(link.relative_to(Path.cwd())) if link.is_relative_to(Path.cwd()) else str(link)))
+if completed.returncode:
+    state = {1: "FAILED", 2: "BLOCKED"}.get(completed.returncode, "FAILED")
+    raise RuntimeError(f"Scoutra run {state} (exit {completed.returncode}). See the run log and the ZIP above if produced.")
 
+"""
 
 def cells():
     def cell(kind, slug, source):
@@ -83,7 +86,6 @@ def cells():
             raise ValueError(f"Raw embedded source delimiter occurs in {name}")
         yield cell("code", f"module-{name}", f"SOURCES[{name + '.py'!r}] = r'''{source}'''\n")
     yield cell("code", "execute-laboratory", RUN)
-    yield cell("code", "download-results", REPORT)
 
 
 def main():
@@ -96,7 +98,7 @@ def main():
             compile("".join(cell["source"]), cell["id"], "exec")
     notebook = {"cells": content, "metadata": {
         "kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
-        "language_info": {"name": "python", "version": "3.12"},
+        "language_info": {"name": "python", "version": "3.13.16"},
     }, "nbformat": 4, "nbformat_minor": 5}
     text = json.dumps(notebook, ensure_ascii=False, indent=1) + "\n"
     if args.check:

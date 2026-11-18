@@ -1,11 +1,13 @@
 """Shared contracts. Importing this file never initializes CUDA."""
 import csv
+import http.client
 import hashlib
 import json
 import math
 import os
 import re
 import tempfile
+import urllib.error
 import urllib.request
 import zipfile
 from contextlib import contextmanager
@@ -72,17 +74,47 @@ def verified(path, sha256):
     return path.resolve()
 
 
-def fetch(url, path, sha256, online):
+def fetch(url, path, sha256, online, mirrors=(), probe=None):
     path = Path(path)
-    if not path.exists():
-        if not online:
-            raise Blocked(f"Missing verified asset {path.name}. Enable AUTO_ACQUIRE with Kaggle Internet, or provide the verified cache.")
-        with atomic_path(path) as temporary:
-            with urllib.request.urlopen(url, timeout=90) as response, temporary.open("wb") as out:
-                while chunk := response.read(1024 * 1024):
-                    out.write(chunk)
-            verified(temporary, sha256)
-    return verified(path, sha256)
+    if path.is_file():
+        try:
+            return verified(path, sha256)
+        except ValueError:
+            if not online:
+                raise
+            # Replace a damaged writable cache only after verifying the new bytes.
+    if not online:
+        raise Blocked(f"Missing {path.name}. Set ASSET_CACHE to its verified local directory or enable Kaggle Internet and AUTO_ACQUIRE.")
+    errors = []
+    attempted = False
+    for source in dict.fromkeys((url, *mirrors)):
+        if probe:
+            try:
+                probe(source)
+            except Blocked as error:
+                errors.append(str(error))
+                continue
+        attempted = True
+        for _ in range(2):
+            try:
+                with atomic_path(path) as temporary:
+                    with urllib.request.urlopen(source, timeout=30) as response, temporary.open("wb") as out:
+                        while chunk := response.read(1024 * 1024):
+                            out.write(chunk)
+                    verified(temporary, sha256)
+                return path.resolve()
+            except (OSError, http.client.HTTPException, ValueError) as error:
+                errors.append(f"{source}: {error}")
+    error_type = RuntimeError if attempted else Blocked
+    raise error_type(f"Could not acquire verified {path.name}. {' | '.join(errors)}")
+
+
+def probe_endpoint(url):
+    request = urllib.request.Request(url, headers={"Range": "bytes=0-0", "User-Agent": "scoutra-kaggle-preflight/1"})
+    with urllib.request.urlopen(request, timeout=8) as response:
+        if not response.read(1):
+            raise OSError("Empty response")
+        return {"http_status": response.status, "reachable": True}
 
 
 def resolve_dataset(request, mount=Path("/kaggle/input")):
