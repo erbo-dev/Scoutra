@@ -116,15 +116,18 @@ class JobRunner:
     def __init__(self, device):
         import cv2
         cv2.setNumThreads(1)
-        self.device = device
+        self.device = "cpu" if device.startswith("cpu:") else device
         self.detector = None
         self.detector_error = None
         self.torch = None
+        self.gpu_uuid = None
         if device.startswith("cuda:"):
             import torch
             torch.set_num_threads(1)
             torch.cuda.set_device(device)
+            from environment import cuda_uuid
             self.torch = torch
+            self.gpu_uuid = cuda_uuid(torch, torch.cuda.current_device())
 
     def sync(self):
         if self.torch:
@@ -174,7 +177,7 @@ class JobRunner:
         pred = output / "predictions" / f"{video['clip']}.jsonl"
         overlay_path = output / "annotated_videos" / f"{video['clip']}.mp4"
         expected = min(task["limit"] or video["frames"], video["frames"])
-        count = boxes = 0
+        count = boxes = batches = 0
         inference = 0.0
         with capture(video["path"]) as source, atomic_path(pred) as temporary, temporary.open("w") as rows, \
                 overlay(overlay_path, video, task["overlays"]) as annotated:
@@ -185,6 +188,7 @@ class JobRunner:
                 start = time.perf_counter()
                 results = self.detector.predict(rgb)
                 self.sync()
+                batches += 1
                 inference += time.perf_counter() - start
                 for frame, detections in zip(batch, results, strict=True):
                     count += 1
@@ -202,8 +206,10 @@ class JobRunner:
             "score_floor": task["score"], "asset": task["asset"], "model_contract": self.detector.load_info,
             "batch_size": task["batch"], "precision": task["precision"],
             "device": task.get("assigned_device", self.device), "worker_cuda_device": self.device,
+            "gpu_uuid": self.gpu_uuid, "inference_batches": batches, "cuda_frames": count if self.torch else 0,
         })
-        return {"frames": count, "boxes": boxes, "inference_s": inference,
+        return {"frames": count, "boxes": boxes, "inference_s": inference, "inference_batches": batches,
+                "cuda_frames": count if self.torch else 0,
                 "clip_seconds": count / video["nominal_fps"], "prediction_path": str(pred),
                 "prediction_sha256": fingerprint}
 

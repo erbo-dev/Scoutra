@@ -1,10 +1,10 @@
 # Run this cell after attaching zhanto-highlights and selecting Kaggle GPU T4 x2.
-RUN_MODE = "SMOKE"                   # PREFLIGHT, SMOKE, BENCHMARK, ADVANCED, REPORT
-AUTO_ACQUIRE = False                 # First model run: enable Kaggle Internet and set True.
+RUN_MODE = "BENCHMARK"               # Successful per-device smoke automatically starts all 12 clips.
+AUTO_ACQUIRE = True                  # Enable Kaggle Internet, or set False with ASSET_CACHE and WHEELHOUSE.
 USE_BOTH_GPUS = True
 ALLOW_SINGLE_GPU = False             # Explicit consent to one-GPU fallback or a single-GPU run.
 DATASET_ROOT = "auto"
-MAX_VIDEOS = 12                     # All 12 are always audited.
+MAX_VIDEOS = 12                      # Keep 12 for the full benchmark.
 MODEL_GROUPS = ["detection", "tracking"]
 DETECTOR_METHODS = ["rfdetr_small"]  # Add rfdetr_medium, dfine_small, rtdetr_r18vd, rtdetrv2_r18vd.
 TRACKER_METHODS = ["bytetrack", "botsort_cmc"]  # strongsort needs OSNET_CHECKPOINT.
@@ -20,7 +20,8 @@ DETECTOR_SCORE_FLOOR = 0.05
 OPERATING_SCORE = 0.25
 TRACKER_SETTINGS = {"high": 0.25, "low": 0.10, "new": 0.25, "match": 0.80, "buffer": 30}
 JOB_TIMEOUT_S = 900
-ASSET_CACHE = None                  # Optional offline cache path containing the reviewed files.
+ASSET_CACHE = None                   # Read-only Kaggle folder containing rf-detr-small.pth.
+WHEELHOUSE = None                    # Optional Kaggle folder with Linux CPython 3.13 dependency wheels.
 CACHE_RUN = None                    # Prior run ID or extracted run directory for frozen detections/tracks.
 REPORT_RUN = None                   # REPORT uses the latest saved run by default.
 
@@ -55,7 +56,7 @@ CONFIG = {
     "detectors": DETECTOR_METHODS, "trackers": TRACKER_METHODS, "track_detector": TRACK_DETECTOR,
     "scaling_models": SCALING_MODELS, "save_videos": SAVE_ANNOTATED_VIDEOS, "smoke_frames": SMOKE_FRAMES,
     "batch": BATCH_SIZE, "precision": PRECISION, "score": DETECTOR_SCORE_FLOOR, "operating_score": OPERATING_SCORE,
-    "tracker_settings": TRACKER_SETTINGS, "timeout": JOB_TIMEOUT_S, "asset_cache": ASSET_CACHE,
+    "tracker_settings": TRACKER_SETTINGS, "timeout": JOB_TIMEOUT_S, "asset_cache": ASSET_CACHE, "wheelhouse": WHEELHOUSE,
     "cache_run": CACHE_RUN, "report_run": REPORT_RUN, "advanced_methods": ADVANCED_METHODS,
     "identity_tracker": IDENTITY_TRACKER, "identity_threshold": IDENTITY_THRESHOLD, "identity_sweep": IDENTITY_SWEEP,
     "crop_manifest": CROP_MANIFEST, "crop_stride": CROP_STRIDE, "crops_per_track": CROPS_PER_TRACK,

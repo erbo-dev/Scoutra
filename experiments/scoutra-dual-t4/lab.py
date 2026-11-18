@@ -8,8 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from advanced import ADVANCED, PART_COMMITS, compare_embeddings, homography, identity_output, identity_overlay, load_agentcoach, prepare_crops, temporal_ball, temporal_ocr
-from backends import DETECTORS, HF, RF, TRACKERS, detector_asset, osnet_asset
-from common import Blocked, GROUPS, NAMES, STATES, digest, export_zip, json_read, json_write, resolve_dataset, table
+from backends import DETECTORS, TRACKERS, detector_asset, osnet_asset
+from common import Blocked, GROUPS, NAMES, STATES, digest, export_zip, json_read, json_write, resolve_dataset, table, probe_endpoint
 from environment import PACKAGE_PROFILES, command, device_plan, inventory, prepare_profile
 from evaluate import (DETECTION_METRICS, IDENTITY_METRICS, REID_METRICS, TRACKING_METRICS,
                       identity_metrics, parse_reviewed)
@@ -19,8 +19,11 @@ from schedule import SAMPLE_FIELDS
 STATUS_FIELDS = ("group", "method", "stage", "state", "reason", "clip", "device", "pid", "traceback")
 RUNTIME_FIELDS = ("method", "phase", "clip", "device", "pid", "state", "frames", "crops_processed", "boxes", "clip_seconds",
                   "wall_s", "inference_s", "model_load_s", "cache_sha256", "prediction_sha256", "prediction_path",
-                  "start_monotonic_s", "end_monotonic_s",
+                  "start_monotonic_s", "end_monotonic_s", "gpu_uuid", "inference_batches", "cuda_frames",
                   "cuda_peak_allocated_bytes", "cuda_peak_reserved_bytes", "cuda_allocated_bytes", "cuda_reserved_bytes")
+DEVICE_FIELDS = ("group", "method", "phase", "device", "gpu_uuid", "pid", "frames", "cuda_frames",
+                 "inference_batches", "inference_s", "successful_jobs", "failures")
+EXIT_CODES = {"EXECUTED": 0, "READY": 0, "FAILED": 1, "BLOCKED": 2}
 METRIC_FIELDS = ("group", "method", "metric", "state", "value", "reason", "gt_sha256")
 MODES = {"PREFLIGHT", "SMOKE", "BENCHMARK", "ADVANCED", "REPORT"}
 
@@ -35,6 +38,9 @@ def validate(config):
         raise ValueError(f"RUN_MODE must be one of {sorted(MODES)}")
     if not set(config["groups"]) <= GROUPS:
         raise ValueError(f"Unknown MODEL_GROUPS, available groups: {sorted(GROUPS)}")
+    if config["mode"] in {"PREFLIGHT", "SMOKE", "BENCHMARK"} and not any(
+            group in config["groups"] and config[key] for group, key in (("detection", "detectors"), ("tracking", "trackers"))):
+        raise ValueError("Select at least one detector or tracker for preflight, smoke or benchmark.")
     if config["mode"] == "ADVANCED" and not config["advanced_methods"]:
         raise ValueError("ADVANCED requires at least one explicit ADVANCED_METHODS selection")
     if config["mode"] == "ADVANCED" and config["advanced_methods"] and not set(config["advanced_methods"]) <= set().union(*ADVANCED.values()):
@@ -94,9 +100,13 @@ class Laboratory:
     def __init__(self, root, config, run):
         self.root, self.config, self.run = root, config, run
         self.workspace = root / ".runtime"
-        self.assets = Path(config["asset_cache"]) if config["asset_cache"] else self.workspace / "assets"
+        self.assets = self.workspace / "assets"
+        self.network = {}
+        self.readiness = {}
+        self.detector_assets = {}
+        self.cuda_profiles = {}
         self.status, self.runtime, self.metrics, self.samples = [], [], [], []
-        self.schedules, self.comparisons = [], []
+        self.schedules, self.comparisons, self.device_rows = [], [], []
         self.profiles, self.video_by_clip, self.selected = {}, {}, []
         self.devices, self.device_failure = None, None
         self.cache_run = None
@@ -141,7 +151,8 @@ class Laboratory:
     def profile(self, name):
         if name not in self.profiles:
             try:
-                self.profiles[name] = prepare_profile(name, self.workspace, self.run, self.config["auto_acquire"])
+                self.profiles[name] = prepare_profile(name, self.workspace, self.run, self.config["auto_acquire"],
+                                                      self.config.get("wheelhouse"), self.probe)
                 self.log("environment", name, "profile", "EXECUTED", "Isolated import test and pip check passed")
             except Exception as error:
                 self.profiles[name] = error
@@ -151,11 +162,25 @@ class Laboratory:
             raise result
         return result
 
-    def audit(self):
+    def probe(self, url):
+        if url not in self.network:
+            try:
+                self.network[url] = probe_endpoint(url)
+            except OSError as error:
+                self.network[url] = {"reachable": False, "error": f"{type(error).__name__}: {error}"}
+        result = self.network[url]
+        if not result["reachable"]:
+            raise Blocked(f"Endpoint unreachable: {url}. {result['error']}. Enable Kaggle Internet or use local assets and WHEELHOUSE.")
+
+    def environment_preflight(self):
         self.gpu = inventory(self.run / "environment" / "gpu_inventory.json")
-        self.log("environment", "gpu", "inventory", "EXECUTED", f"{self.gpu['gpu_count']} CUDA device(s) observed. See kernel test results.")
+        self.log("environment", "gpu", "inventory", "EXECUTED",
+                 f"{self.gpu['gpu_count']} CUDA device(s) observed. See kernel test results.")
         json_write(self.run / "environment" / "profiles.json", PACKAGE_PROFILES)
-        root = resolve_dataset(self.config["dataset_root"])
+        if self.config["cache_run"]:
+            self.cache_run = find_run(self.root, self.config["cache_run"])
+
+    def audit_dataset(self, root):
         records, errors = dataset_audit(root)
         if records:
             table(self.run / "dataset" / "manifest.csv", records, tuple(records[0]))
@@ -168,26 +193,76 @@ class Laboratory:
         self.selected = records[:self.config["max_videos"]]
         self.log("dataset", "zhanto_highlights", "audit", "EXECUTED",
                  f"{len(records)} of 12 clips decoded and hashed. {len(self.selected)} selected for this run.")
-        if self.config["cache_run"]:
-            self.cache_run = find_run(self.root, self.config["cache_run"])
+
+    def cuda_profile(self, name):
+        python, env = self.profile(name)
+        if name not in self.cuda_profiles:
+            expected = {p["index"]: p["uuid"] for p in self.gpu["gpus"] if p["functional"]}
+            probe = inventory(self.run / "environment" / f"{name}_gpu_inventory.json", python, env)
+            actual = {p["index"]: p["uuid"] for p in probe["gpus"] if p["functional"]}
+            missing = [device for device in self.hardware()
+                       if (i := int(device.split(":")[1])) not in actual or actual[i] != expected[i]]
+            self.cuda_profiles[name] = missing
+        missing = self.cuda_profiles[name]
+        if missing:
+            raise RuntimeError(f"Isolated profile {name} failed CUDA/UUID preflight for {missing}; see its GPU inventory.")
+
+    def preflight_check(self, group, method, stage, action):
+        try:
+            result = action()
+        except Exception as error:
+            self.record_error(group, method, stage, error)
+            return False, None
+        self.log(group, method, stage, "EXECUTED")
+        return True, result
 
     def preflight(self):
-        for name in self.config["detectors"]:
-            paths = []
-            if name in RF:
-                paths = [self.assets / f"rf-detr-{RF[name][0]}.pth"]
-            elif name in HF:
-                paths = [self.assets / name / f for f in ("config.json", "preprocessor_config.json", "model.safetensors")]
-            elif self.config["scoutra_checkpoint"]:
-                paths = [Path(self.config["scoutra_checkpoint"]["path"])]
-            present = bool(paths) and all(path.is_file() for path in paths)
-            self.log("detection", name, "asset_preflight", "EXECUTED" if present else "BLOCKED",
-                     "Cache paths exist. Hashes and architecture are verified on load." if present else
-                     "Asset missing from cache. SMOKE can acquire the default public assets with AUTO_ACQUIRE=True.")
-        try:
-            self.hardware()
-        except Exception as error:
-            self.record_error("environment", "gpu", "device_plan", error)
+        config = self.config
+        print(f"Preflight on Python {sys.version.split()[0]} | "
+              f"acquisition={'on' if config['auto_acquire'] else 'off'} | "
+              f"asset cache={config.get('asset_cache') or 'session cache'} | "
+              f"wheelhouse={config.get('wheelhouse') or 'none'}", flush=True)
+
+        def check_encoder():
+            from shutil import which
+
+            if not which("ffmpeg"):
+                raise Blocked("Annotated videos require ffmpeg. Install it or set SAVE_ANNOTATED_VIDEOS=False.")
+            result = subprocess.run(["ffmpeg", "-hide_banner", "-encoders"], capture_output=True, text=True, timeout=15)
+            if result.returncode or " libx264 " not in result.stdout:
+                raise Blocked("Annotated videos require the ffmpeg libx264 encoder.")
+        encoder_ok, _ = (self.preflight_check("environment", "ffmpeg", "encoder_preflight", check_encoder)
+                         if config["save_videos"] else (True, None))
+        if "detection" in config["groups"]:
+            for method in config["detectors"]:
+                gpu_ok, _ = self.preflight_check("detection", method, "gpu_preflight", self.hardware)
+                if not gpu_ok or not encoder_ok:
+                    continue
+                deps_ok, _ = self.preflight_check("detection", method, "dependency_preflight",
+                                                  lambda: self.cuda_profile(DETECTORS[method]))
+                assets_ok, asset = self.preflight_check("detection", method, "asset_preflight",
+                                                        lambda: detector_asset(method, config, self.assets, self.probe))
+                self.readiness[("detection", method)] = deps_ok and assets_ok
+                if assets_ok:
+                    self.detector_assets[method] = asset
+                    json_write(self.run / "environment" / "assets" / f"{method}.json", asset)
+        if "tracking" in config["groups"]:
+            for method in config["trackers"]:
+                if not encoder_ok:
+                    continue
+                if self.cache_run is None and not self.readiness.get(("detection", config["track_detector"])):
+                    self.log("tracking", method, "cache_preflight", "BLOCKED",
+                             f"Selected detector {config['track_detector']} is unavailable and CACHE_RUN is unset.")
+                    continue
+                if method == "strongsort":
+                    gpu_ok, _ = self.preflight_check("tracking", method, "gpu_preflight", self.hardware)
+                    asset_ok, _ = self.preflight_check("tracking", method, "asset_preflight", lambda: osnet_asset(config))
+                    if not (gpu_ok and asset_ok):
+                        continue
+                setup = self.cuda_profile if method == "strongsort" else self.profile
+                ready, _ = self.preflight_check("tracking", method, "dependency_preflight",
+                                                 lambda: setup(TRACKERS[method]))
+                self.readiness[("tracking", method)] = ready
 
     def schedule(self, group, method, phase, tasks, devices, profile):
         python, env = self.profile(profile)
@@ -197,7 +272,9 @@ class Laboratory:
         response = logs / "schedule_output.json"
         active = devices[:len(tasks)]
         telemetry = any(device.startswith("cuda") for device in active)
-        json_write(request, {"tasks": tasks, "devices": active, "logdir": str(logs),
+        gpu_uuids = {f"cuda:{gpu['index']}": gpu["uuid"] for gpu in self.gpu["gpus"]
+                     if gpu.get("functional") and gpu.get("uuid")}
+        json_write(request, {"tasks": tasks, "devices": active, "logdir": str(logs), "device_uuids": gpu_uuids,
                              "timeout": self.config["timeout"], "telemetry": telemetry})
         with (logs / "scheduler.log").open("w") as log:
             proc = subprocess.Popen([python, "-u", str(Path(__file__).with_name("schedule.py")), str(request), str(response)],
@@ -227,8 +304,16 @@ class Laboratory:
         total_frames = sum(row.get("frames", 0) for row in successes)
         wall = report["wall_s"]
         used = sorted({row["device"] for row in successes})
+        confirmed = True
+        if group == "detection" and telemetry:
+            confirmed = validate_detector_devices(successes, active, gpu_uuids)
+            if not confirmed:
+                self.log(group, method, f"{phase}_cuda_inference", "FAILED",
+                         "Expected CUDA frames and inference batches on every assigned physical GPU, with a distinct UUID and PID per worker.")
+        self.device_rows.extend({**row, "group": group, "method": method, "phase": phase} for row in report["workers"])
         performance = {
             "group": group, "method": method, "phase": phase, "planned_devices": active, "working_devices": used,
+            "cuda_inference_verified": confirmed if group == "detection" and telemetry else None,
             "jobs_succeeded": len(successes), "jobs_expected": len(tasks), "frames": total_frames,
             "wall_s": wall, "frames_per_s": total_frames / wall,
             "video_seconds_per_wall_s": sum(row.get("clip_seconds", 0) for row in successes) / wall,
@@ -253,29 +338,30 @@ class Laboratory:
 
     def detect(self, method):
         devices = self.hardware()
-        asset = detector_asset(method, self.config, self.assets)
+        asset = self.detector_assets[method]
         smoke_count = len(devices)
         videos = sorted(self.selected, key=lambda row: -row["frames"])[:smoke_count]
         profile = DETECTORS[method]
         tasks = self.detection_tasks(method, asset, "smoke", videos, self.config["smoke_frames"], self.config["save_videos"])
-        smoke, _ = self.schedule("detection", method, "smoke", tasks, devices, profile)
+        smoke, smoke_info = self.schedule("detection", method, "smoke", tasks, devices, profile)
         if self.config["mode"] == "SMOKE":
             return
-        if len(smoke) != len(tasks):
+        if len(smoke) != len(tasks) or smoke_info["cuda_inference_verified"] is False:
             self.log("detection", method, "benchmark", "BLOCKED", "The real model smoke test failed on at least one assigned device.")
             return
+        print(f"{method}: smoke passed, starting full inference over {len(self.selected)} clips.", flush=True)
         tasks = self.detection_tasks(method, asset, "benchmark", self.selected, None, self.config["save_videos"])
         predictions, dual = self.schedule("detection", method, "benchmark", tasks, devices, profile)
         self.evaluate("detection", method, predictions)
         if method in self.config["scaling_models"] and len(devices) == 2 and len(tasks) >= 2:
-            if len(predictions) != len(tasks):
+            if len(predictions) != len(tasks) or dual["cuda_inference_verified"] is False:
                 self.log("detection", method, "scaling", "BLOCKED", "Two-GPU workload did not fully complete.")
                 return
             trial = self.detection_tasks(method, asset, "scaling_single", self.selected, None, self.config["save_videos"])
             results, single = self.schedule("detection", method, "scaling_single", trial, devices[:1], profile)
             frames_dual = {row["clip"]: row["frames"] for row in predictions}
             frames_single = {row["clip"]: row["frames"] for row in results}
-            if frames_dual != frames_single:
+            if frames_dual != frames_single or single["cuda_inference_verified"] is False:
                 self.log("detection", method, "scaling", "NOT_EVALUATED", "Single- and dual-GPU runs processed different workloads.")
                 return
             speedup = single["wall_s"] / dual["wall_s"]
@@ -564,8 +650,14 @@ class Laboratory:
         advertised["tracking"][:0] = TRACKERS
         for group, methods in advertised.items():
             for method in methods:
-                if not any(r["group"] == group and r["method"] == method and r["stage"] != "asset_preflight" for r in self.status):
-                    reason = "PREFLIGHT inventories assets and hardware only." if self.config["mode"] == "PREFLIGHT" else "Method not selected in this run."
+                if not any(r["group"] == group and r["method"] == method and not r["stage"].endswith("_preflight") for r in self.status):
+                    if self.config["mode"] == "PREFLIGHT":
+                        reason = "PREFLIGHT does not run inference."
+                    elif (group, method) in self.readiness or any(
+                            r["group"] == group and r["method"] == method for r in self.status):
+                        reason = "Preflight finished; no inference job was completed for this method."
+                    else:
+                        reason = "Method not selected in this run."
                     blocker = ADVANCED[group].get(method)
                     if blocker:
                         reason = f"{reason} {blocker}"
@@ -580,6 +672,8 @@ class Laboratory:
         if group not in self.config["groups"]:
             return
         for method in methods:
+            if not self.readiness.get((group, method)):
+                continue
             try:
                 handler(method)
             except Exception as error:
@@ -587,11 +681,18 @@ class Laboratory:
 
     def reports(self):
         self.record_unrun()
+        result = self.result()
+        json_write(self.run / "RUN_RESULT.json", result)
+        json_write(self.run / "environment" / "network.json",
+                   {"auto_acquire": self.config["auto_acquire"], "wheelhouse": self.config.get("wheelhouse"),
+                    "probes": self.network, "note": "No HTTP probe is needed for an already validated local profile or checkpoint."})
         bench = self.run / "benchmarks"
         table(bench / "experiment_status.csv", self.status, STATUS_FIELDS)
         table(bench / "metrics.csv", self.metrics, METRIC_FIELDS)
         if self.runtime:
             table(bench / "runtime.csv", self.runtime, RUNTIME_FIELDS)
+        if self.device_rows:
+            table(bench / "device_frames.csv", self.device_rows, DEVICE_FIELDS)
         if self.samples:
             table(bench / "gpu_usage.csv", self.samples, ("method", "phase", *SAMPLE_FIELDS))
         json_write(bench / "execution_summary.json", {"schedules": self.schedules, "scaling": self.comparisons})
@@ -599,7 +700,8 @@ class Laboratory:
         report.mkdir(exist_ok=True)
         counts = Counter(row["state"] for row in self.status)
         (report / "summary.md").write_text(
-            f"# Scoutra run {self.run.name}\n\nMode: {self.config['mode']}\n\n"
+            f"# Scoutra run {self.run.name}\n\n**{result['state']}** · {self.config['mode']} · "
+            f"{result['detection_frames']} detector frames, {result['cuda_detection_frames']} on CUDA\n\n"
             + "\n".join(f"- {name}: {count}" for name, count in sorted(counts.items()))
             + "\n\nSee benchmarks/experiment_status.csv for each method and clip. A hardware or asset check is distinct from inference.\n"
             + ("\nGPU samples are device-wide nvidia-smi utilization. Match by UUID in environment/gpu_inventory.json.\n" if self.samples else
@@ -629,21 +731,69 @@ class Laboratory:
                         "The dataset consists of independent short highlights. Full-match identity reliability is outside this measurement."])
         (report / "method_comparison.md").write_text("\n".join(mapping) + "\n", encoding="utf-8")
 
-    def run_selected(self):
-        self.audit()
+    def result(self):
+        states = {r["state"] for r in self.status}
         mode = self.config["mode"]
-        if mode == "PREFLIGHT":
+        detection_rows = [r for r in self.runtime if r["method"] in DETECTORS and r["state"] == "EXECUTED"]
+        if "FAILED" in states:
+            state = "FAILED"
+        elif "BLOCKED" in states:
+            state = "BLOCKED"
+        elif mode == "PREFLIGHT":
+            state = "READY"
+        elif any(r["group"] in GROUPS and r["state"] == "EXECUTED"
+                 and r["stage"] in {"smoke", "benchmark", "advanced"} for r in self.status):
+            state = "EXECUTED"
+        else:
+            state = "FAILED"
+        return {"run_id": self.run.name, "mode": mode, "state": state, "exit_code": EXIT_CODES[state],
+                "detection_frames": sum(r["frames"] for r in detection_rows),
+                "cuda_detection_frames": sum(r.get("cuda_frames", 0) for r in detection_rows),
+                "successful_detection_jobs": len(detection_rows),
+                "failed_stages": sum(r["state"] == "FAILED" for r in self.status),
+                "blocked_stages": sum(r["state"] == "BLOCKED" for r in self.status)}
+
+    def run_selected(self):
+        self.environment_preflight()
+        root = resolve_dataset(self.config["dataset_root"])
+        mode = self.config["mode"]
+        if mode in {"PREFLIGHT", "SMOKE", "BENCHMARK"}:
             self.preflight()
-        elif mode in {"SMOKE", "BENCHMARK"}:
+            if mode == "PREFLIGHT":
+                self.audit_dataset(root)
+                return
+            if not any(self.readiness.values()):
+                self.log("dataset", "zhanto_highlights", "audit", "SKIPPED",
+                         "Preflight blocked all selected methods before video decoding.")
+                return
+            self.audit_dataset(root)
             self.core("detection", self.config["detectors"], self.detect)
             self.core("tracking", self.config["trackers"], self.track)
         else:
+            self.audit_dataset(root)
             for method in self.config["advanced_methods"]:
                 group = groups_for(method)
                 try:
                     self.advanced(group, method)
                 except Exception as error:
                     self.record_error(group, method, "advanced", error)
+
+
+def validate_detector_devices(rows, devices, expected):
+    if len({expected.get(device) for device in devices}) != len(devices):
+        return False
+    pids = set()
+    for device in devices:
+        identity = expected.get(device)
+        assigned = [r for r in rows if r["device"] == device]
+        if not identity or not assigned or any(
+                r.get("gpu_uuid") != identity or r.get("cuda_frames", 0) != r["frames"] or r["frames"] <= 0
+                or r.get("inference_batches", 0) <= 0 for r in assigned):
+            return False
+        pids.add(assigned[0]["pid"])
+        if any(r["pid"] != assigned[0]["pid"] for r in assigned):
+            return False
+    return len(pids) == len(devices)
 
 
 def launch(root, config):
@@ -667,12 +817,15 @@ def launch(root, config):
         lab.record_error("run", "orchestrator", "execution", error)
     finally:
         lab.reports()
+        outcome = json_read(directory / "RUN_RESULT.json")
         release = export_zip(directory, release)
-        json_write(pointer, {"run_id": directory.name, "path": str(directory), "zip": str(release)})
+        json_write(pointer, {**outcome, "path": str(directory), "zip": str(release)})
     print((directory / "reports" / "summary.md").read_text(encoding="utf-8"))
     print(f"Run folder: {directory}\nZIP: {release}", flush=True)
-    if any(row["state"] in {"FAILED", "BLOCKED"} and row["group"] != "environment" for row in lab.status):
-        print("This run contains FAILED or BLOCKED stages. Open reports/failures.md before comparing results.")
+    print(f"RUN_RESULT={outcome['state']} | exit={outcome['exit_code']} | "
+          f"detector frames={outcome['detection_frames']} | CUDA frames={outcome['cuda_detection_frames']}", flush=True)
+    if outcome["exit_code"]:
+        print("See reports/failures.md in the saved ZIP.", flush=True)
     return release
 
 
@@ -681,4 +834,7 @@ if __name__ == "__main__":
         raise SystemExit("Usage: lab.py OUTPUT_ROOT CONFIG_JSON EMBEDDED_SOURCE_SHA256")
     config = json_read(sys.argv[2])
     config["embedded_source_sha256"] = sys.argv[3]
-    launch(Path(sys.argv[1]), config)
+    root = Path(sys.argv[1])
+    launch(root, config)
+    if config["mode"] != "REPORT":
+        raise SystemExit(json_read(root / "latest_run.json")["exit_code"])
