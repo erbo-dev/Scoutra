@@ -1,0 +1,5 @@
+dataset_root: /kaggle/input/datasets/erbosynshaimardan/zhanto-highlights
+manifest: /kaggle/working/scoutra/dataset/manifest.csv
+cache_root: /kaggle/working/scoutra/cache/stage1-v1
+max_total_frames: 3000
+segments: []

@@ -1,0 +1,11 @@
+schema_version: scoutra-benchmark/1.0
+execute: false
+seed: 1729
+gpu_index: 0
+output_root: /kaggle/working/scoutra/results
+experiment_id: D-no_link-001
+method: no_link
+tracks: /kaggle/working/scoutra/results/B-bytetrack-001/predictions.parquet
+ground_truth: /kaggle/working/scoutra/annotations/detections.json
+anchors: /kaggle/working/scoutra/annotations/selected_players.json
+frames: /kaggle/working/scoutra/cache/stage1-v1/frames.json

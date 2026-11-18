@@ -1,0 +1,22 @@
+schema_version: scoutra-benchmark/1.0
+execute: false
+seed: 1729
+gpu_index: 0
+output_root: /kaggle/working/scoutra/results
+experiment_id: D-agentcoach_reid_only-001
+method: agentcoach_reid_only
+tracks: /kaggle/working/scoutra/results/B-bytetrack-001/predictions.parquet
+ground_truth: /kaggle/working/scoutra/annotations/detections.json
+anchors: /kaggle/working/scoutra/annotations/selected_players.json
+features: /kaggle/working/scoutra/results/C-osnet-track-crops-001/features.npy
+crop_manifest: /kaggle/working/scoutra/results/C-osnet-track-crops-001/crop_manifest.json
+agentcoach:
+  upstream:
+    path: SET_AGENTCOACH_CHECKOUT
+    commit: eef7b0c5d757844fbbb1eeafa6a8050a863a6623
+  parameters:
+    same_person_threshold: 0.9
+    orphan_absorb_threshold: 0.92
+    min_jersey_confidence: 0.6
+    jersey_aware_merge_threshold: 0.8
+frames: /kaggle/working/scoutra/cache/stage1-v1/frames.json

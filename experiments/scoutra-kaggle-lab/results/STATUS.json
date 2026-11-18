@@ -1,0 +1,142 @@
+{
+  "status": "NOT EXECUTED",
+  "experiments": [
+    {
+      "experiment_id": "A-rfdetr-small-001",
+      "method": "rfdetr_small",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/detector.yaml"
+    },
+    {
+      "experiment_id": "A-dfine-001",
+      "method": "dfine",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/detector_dfine.yaml"
+    },
+    {
+      "experiment_id": "A-rfdetr_medium-001",
+      "method": "rfdetr_medium",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/detector_rfdetr_medium.yaml"
+    },
+    {
+      "experiment_id": "A-rtdetr_hf-001",
+      "method": "rtdetr_hf",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/detector_rtdetr_hf.yaml"
+    },
+    {
+      "experiment_id": "A-scoutra_rfdetr-001",
+      "method": "scoutra_rfdetr",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; actual Scoutra trained checkpoint/backend unavailable",
+      "config": "configs/detector_scoutra_rfdetr.yaml"
+    },
+    {
+      "experiment_id": "D-agentcoach_reid_only-001",
+      "method": "agentcoach_reid_only",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/identity_agentcoach_reid_only.yaml"
+    },
+    {
+      "experiment_id": "D-gta-001",
+      "method": "gta",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; compatible audited upstream bridge/environment/assets not yet provisioned",
+      "config": "configs/identity_gta.yaml"
+    },
+    {
+      "experiment_id": "D-mcbyteplusplus_identity_bank-001",
+      "method": "mcbyteplusplus_identity_bank",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; compatible audited upstream bridge/environment/assets not yet provisioned",
+      "config": "configs/identity_mcbyteplusplus_identity_bank.yaml"
+    },
+    {
+      "experiment_id": "D-no_link-001",
+      "method": "no_link",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/identity_no_link.yaml"
+    },
+    {
+      "experiment_id": "C-bpbreid_parts_visibility-001",
+      "method": "bpbreid_parts_visibility",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; compatible audited upstream bridge/environment/assets not yet provisioned",
+      "config": "configs/reid_bpbreid_parts_visibility.yaml"
+    },
+    {
+      "experiment_id": "C-osnet-001",
+      "method": "osnet",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/reid_osnet.yaml"
+    },
+    {
+      "experiment_id": "C-prtreid_global-001",
+      "method": "prtreid_global",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; compatible audited upstream bridge/environment/assets not yet provisioned",
+      "config": "configs/reid_prtreid_global.yaml"
+    },
+    {
+      "experiment_id": "C-prtreid_parts_visibility-001",
+      "method": "prtreid_parts_visibility",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; compatible audited upstream bridge/environment/assets not yet provisioned",
+      "config": "configs/reid_prtreid_parts_visibility.yaml"
+    },
+    {
+      "experiment_id": "B-botsort_boxmot-001",
+      "method": "botsort_boxmot",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/tracker_botsort_boxmot.yaml"
+    },
+    {
+      "experiment_id": "B-bytetrack-001",
+      "method": "bytetrack",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/tracker_bytetrack.yaml"
+    },
+    {
+      "experiment_id": "B-mcbyteplusplus-001",
+      "method": "mcbyteplusplus",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable; compatible audited upstream bridge/environment/assets not yet provisioned",
+      "config": "configs/tracker_mcbyteplusplus.yaml"
+    },
+    {
+      "experiment_id": "B-strongsort_boxmot-001",
+      "method": "strongsort_boxmot",
+      "status": "NOT EXECUTED",
+      "metrics": null,
+      "blocker": "No confirmed Kaggle runtime; reviewed input cache/annotations and exact local checkpoint/hash required as applicable",
+      "config": "configs/tracker_strongsort_boxmot.yaml"
+    }
+  ],
+  "note": "Readiness inventory only. No metric values, video predictions or model runtime measurements exist."
+}
